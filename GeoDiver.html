@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <title>GeoDiver</title>
+    <link href="./GeoDiver_files/style.min.css" rel="stylesheet" type="text/css">
+    <style></style>
+</head>
+
+<body class="app">
+    <nav class="blue darken-4">
+        <div class="nav-wrapper"><span class="hide-on-med-and-down logo"><img alt="GeoDiver Logo" height="64" src="./GeoDiver_files/logo.svg"></span><a class="brand-logo white-text" href="http://localhost:9292/" id="logo-container">&nbsp;GeoDiver</a>
+            <ul class="hide-on-med-and-down navbar_centered">
+                <li class="active"><a class="white-text" href="http://localhost:9292/analyse"> Analyse               </a></li>
+                <li><a class="white-text" href="http://localhost:9292/my_results"> My Results </a></li>
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a class="white-text dropdown-button" data-activates="dropdown" data-beloworigin="true" href="http://localhost:9292/analyse#!">
+                        <div class="row">
+                            <div class="col s8"><span class="right">Ismail</span></div>
+                            <div class="col s4"><img alt="Profile Picture" class="circle profile_img left" src="./GeoDiver_files/photo.jpg"></div>
+                        </div>
+                    </a>
+                    <ul class="dropdown-content collection" id="dropdown" style="z-index: 5; width: 160px; position: absolute; top: 65px; left: 1749.69px; opacity: 1; display: none;">
+                        <li class="collection-item avatar"><i class="material-icons circle light-blue accent-3"> live_help</i><span class="title">FAQs</span></li>
+                        <li class="collection-item avatar"><i class="material-icons circle light-blue accent-3"> feedback</i><span class="title">Feedback</span></li>
+                        <li class="collection-item avatar" onclick="location.href=&#39;/logout&#39;;" style="cursor: pointer;"><i class="material-icons circle light-blue accent-3"> power_settings_new</i><span class="title">Log Out</span></li>
+                    </ul>
+                </li><a class="button-collapse" data-activates="nav-mobile" href="http://localhost:9292/analyse#"><i class="material-icons">menu</i></a></ul>
+            <ul class="side-nav" id="nav-mobile" style="left: -250px;">
+                <li><a href="http://localhost:9292/profile"> Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" id="analysis_container">
+        <div class="section">
+            <div class="card analyse_card" style="overflow: hidden;">
+                <div class="card-content" id="load_geo_card">
+                    <form id="load_geo_db" novalidate="novalidate" _lpchecked="1"><span class="card-title light-blue-text text-darken-3">Analyse GEO Datasets</span>
+                        <div class="input-field" id="search_geo_dataset"><i class="material-icons prefix active">search</i>
+                            <input autocomplete="off" id="search_geo_db" name="geo_db" placeholder="Enter a GEO Dataset Accession Number." spellcheck="false" type="text" aria-required="true" class="valid" aria-invalid="false">
+                            <label for="search_geo_db" class="active"> Search GEO Dataset</label>
+                        </div>
+                        <button class="btn waves-effect waves-light light-blue accent-4 btn-large right load_geo_db_btn" type="submit" value="input">Load GEO Dataset<i class="material-icons right">send</i></button>
+                        <div class="clearfix"></div>
+                    </form>
+                    <div class="clearfix" style="padding-bottom:1rem;"></div>
+                </div>
+                <div class="card-action">
+                    <p class="col sm12"><span class="light-blue-text text-darken-3 heading1" id="geo_db_title">Acute Dengue patients: whole blood [GDS5093]<i class="activator material-icons"> info</i></span></p>
+                    <form action="http://localhost:9292/analyse" id="analyse" novalidate="novalidate">
+                        <input name="geo_db" type="hidden" value="GDS5093">
+                        <div class="input-field col s12"><span class="light-blue-text text-darken-3 heading2">Select Factor to Analyse</span>
+                            <p>
+                                <input id="infection" name="factor" type="radio" value="infection" checked="checked">
+                                <label for="infection">Infection</label>
+                            </p>
+                            <p>
+                                <input id="disease_state" name="factor" type="radio" value="disease.state">
+                                <label for="disease_state">Disease State</label>
+                            </p>
+                            <p>
+                                <input id="individual" name="factor" type="radio" value="individual">
+                                <label for="individual">Individual</label>
+                            </p>
+                        </div>
+                        <br>
+                        <div class="input-field col s12"><span class="light-blue-text text-darken-3 heading2">Compare two sets of samples</span></div>
+                        <div class="row">
+                            <div class="select_factors" id="infection_select" style="">
+                                <div class="input-field col s6">
+                                    <select multiple="" name="groupa[]" class="initialized">
+                                        <option disabled="" selected="" value=""> Choose your option (Group A)</option>
+                                        <option value="Dengue virus">Dengue Virus</option>
+                                        <option value="control">Control</option>
+                                    </select>
+                                    <label> Group A</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <select multiple="" name="groupb[]" class="initialized">
+                                        <option disabled="" selected="" value=""> Choose your option (Group B)</option>
+                                        <option value="Dengue virus">Dengue Virus</option>
+                                        <option value="control">Control</option>
+                                    </select>
+                                    <label>Group B</label>
+                                </div>
+                            </div>
+                            <div class="select_factors" id="disease_state_select" style="display:none;">
+                                <div class="input-field col s6">
+                                    <select multiple="" name="groupa[]" class="initialized">
+                                        <option disabled="" selected="" value=""> Choose your option (Group A)</option>
+                                        <option value="healthy control">Healthy Control</option>
+                                        <option value="Convalescent">Convalescent</option>
+                                        <option value="Dengue Hemorrhagic Fever">Dengue Hemorrhagic Fever</option>
+                                        <option value="Dengue Fever">Dengue Fever</option>
+                                    </select>
+                                    <label> Group A</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    </ul>
+                                    <select multiple="" name="groupb[]" class="initialized">
+                                        <option disabled="" selected="" value=""> Choose your option (Group B)</option>
+                                        <option value="healthy control">Healthy Control</option>
+                                        <option value="Convalescent">Convalescent</option>
+                                        <option value="Dengue Hemorrhagic Fever">Dengue Hemorrhagic Fever</option>
+                                        <option value="Dengue Fever">Dengue Fever</option>
+                                    </select>
+                                    <label>Group B</label>
+                                </div>
+                            </div>
+                            <div class="select_factors" id="individual_select" style="display:none;">
+                                <div class="input-field col s6">
+                                    <select multiple="" name="groupa[]" class="initialized">
+                                        <option disabled="" selected="" value=""> Choose your option (Group A)</option>
+                                        <option value="patient 3">Patient 3</option>
+                                        <option value="patient 4">Patient 4</option>
+                                        <option value="patient 6">Patient 6</option>
+                                        <option value="patient 7">Patient 7</option>
+                                        <option value="patient 32">Patient 32</option>
+                                        <option value="patient 33">Patient 33</option>
+                                        <option value="patient 34">Patient 34</option>
+                                        <option value="patient 35">Patient 35</option>
+                                        <option value="patient 36">Patient 36</option>
+                                        <option value="patient 37">Patient 37</option>
+                                        <option value="patient 38">Patient 38</option>
+                                        <option value="patient 39">Patient 39</option>
+                                        <option value="patient 40">Patient 40</option>
+                                        <option value="patient 41">Patient 41</option>
+                                        <option value="patient 44">Patient 44</option>
+                                        <option value="patient 42">Patient 42</option>
+                                        <option value="patient 43">Patient 43</option>
+                                        <option value="patient 45">Patient 45</option>
+                                        <option value="patient 47">Patient 47</option>
+                                        <option value="patient 48">Patient 48</option>
+                                        <option value="patient 49">Patient 49</option>
+                                        <option value="patient 54">Patient 54</option>
+                                        <option value="patient 55">Patient 55</option>
+                                        <option value="patient 60">Patient 60</option>
+                                        <option value="patient 66">Patient 66</option>
+                                        <option value="patient 68">Patient 68</option>
+                                        <option value="patient 80">Patient 80</option>
+                                        <option value="patient 81">Patient 81</option>
+                                        <option value="c1">C1</option>
+                                        <option value="c2">C2</option>
+                                        <option value="c3">C3</option>
+                                        <option value="c4">C4</option>
+                                        <option value="c5">C5</option>
+                                        <option value="c6">C6</option>
+                                        <option value="c7">C7</option>
+                                        <option value="c8">C8</option>
+                                        <option value="c9">C9</option>
+                                    </select>
+                                    <label> Group A</label>
+                                </div>
+                                <div class="input-field col s6">
+                                    <select multiple="" name="groupb[]">
+                                        <option disabled="" selected="" value=""> Choose your option (Group B)</option>
+                                        <option value="patient 3">Patient 3</option>
+                                        <option value="patient 4">Patient 4</option>
+                                        <option value="patient 6">Patient 6</option>
+                                        <option value="patient 7">Patient 7</option>
+                                        <option value="patient 32">Patient 32</option>
+                                        <option value="patient 33">Patient 33</option>
+                                        <option value="patient 34">Patient 34</option>
+                                        <option value="patient 35">Patient 35</option>
+                                        <option value="patient 36">Patient 36</option>
+                                        <option value="patient 37">Patient 37</option>
+                                        <option value="patient 38">Patient 38</option>
+                                        <option value="patient 39">Patient 39</option>
+                                        <option value="patient 40">Patient 40</option>
+                                        <option value="patient 41">Patient 41</option>
+                                        <option value="patient 44">Patient 44</option>
+                                        <option value="patient 42">Patient 42</option>
+                                        <option value="patient 43">Patient 43</option>
+                                        <option value="patient 45">Patient 45</option>
+                                        <option value="patient 47">Patient 47</option>
+                                        <option value="patient 48">Patient 48</option>
+                                        <option value="patient 49">Patient 49</option>
+                                        <option value="patient 54">Patient 54</option>
+                                        <option value="patient 55">Patient 55</option>
+                                        <option value="patient 60">Patient 60</option>
+                                        <option value="patient 66">Patient 66</option>
+                                        <option value="patient 68">Patient 68</option>
+                                        <option value="patient 80">Patient 80</option>
+                                        <option value="patient 81">Patient 81</option>
+                                        <option value="c1">C1</option>
+                                        <option value="c2">C2</option>
+                                        <option value="c3">C3</option>
+                                        <option value="c4">C4</option>
+                                        <option value="c5">C5</option>
+                                        <option value="c6">C6</option>
+                                        <option value="c7">C7</option>
+                                        <option value="c8">C8</option>
+                                        <option value="c9">C9</option>
+                                    </select>
+                                    <label>Group B</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <ul class="collapsible adv_param_collapsible" data-collapsible="accordion">
+                            <li class="active">
+                                <div class="collapsible-header light-blue accent-4 waves-effect waves-light btn left active" id="adv_params_btn">Advanced Parameters</div>
+                                <div class="clearfix"></div>
+                                <div class="collapsible-body adv_param_collapsible" style="display: block;">
+                                    <div class="row">
+                                        <div class="input-field col s12"><span class="light-blue-text text-darken-3 heading2">Analyses</span>
+                                            <p>
+                                                <input checked="checked" id="DGEA_input" name="dgea" type="checkbox">
+                                                <label for="DGEA_input"> Differential Gene Expression Analysis</label>
+                                            </p>
+                                            <p>
+	                                           	<input checked="checked" id="GSEA_input" name="gsea" type="checkbox">
+	                                            <label for="GSEA_input"> Gene Set Enrichment Analysis</label>
+	                                        </p>	
+		                                        </div>
+		                    						<div class="clearfix" style="padding-bottom:1rem;"></div>
+			                                          <div class="row">
+													    <div class="col s12">
+													      <ul class="tabs">
+													        <li class="tab col s3"><a href="#test1">DGEA</a></li>
+													        <li class="tab col s3"><a class="active" href="#test2">GAGE</a></li>
+													      </ul>
+															  </div>
+															    <div class="clearfix" style="padding-bottom:1rem;"></div>
+															    <div id="test1" class="col s12">Number of top genes</div>
+															    <div id="test2" class="col s12">GAGE</div>
+															  </div>
+															    <form action="#">
+															    <p class="range-field">
+															      <input type="range" id="test5" min="0" max="250" />
+															    </p>
+															    	<div class="clearfix" style="padding-bottom:2rem;"></div>
+															        <p>
+																      <input type="checkbox" id="test6" checked="checked" />
+																      <label for="test6">Heatmap</label>
+																    </p>
+																	<div class="clearfix" style="padding-top:1.5rem;"></div>
+																	  <div class="input-field col s4">
+																	    <select>
+																	      <option value="1">Euclidean</option>
+																	      <option value="2">Maximum</option>
+																	      <option value="3">Manhattan</option>
+																	      <option value="4">Canberra</option>
+																	      <option value="5">Binary</option>
+																	      <option value="6">Minkowski</option>
+																	    </select>
+																	    <label>Distance method</label>
+																	  </div>
+
+																	  <div class="input-field col s4">
+																	    <select>
+																	      <option value="1">Centroid</option>
+																	      <option value="2">Median</option>
+																	      <option value="3">Mcquitty</option>
+																	      <option value="4">Average</option>
+																	      <option value="5">Complete</option>
+																	      <option value="6">Single</option>
+																	      <option value="7">Ward.D</option>
+																	      <option value="8">Ward.D2</option>
+																	    </select>
+																	    <label>Clustering method</label>
+																	  </div>
+
+														            <div class="clearfix" style="padding-bottom:1.5rem;"></div>
+																      <!-- Switch -->
+																	  <div class="switch">
+																	    <label>
+																	      Off
+																	      <input type="checkbox">
+																	      <span class="lever"></span>
+																	      Cluster by genes
+																	    </label>
+																	  </div>
+																	<div class="clearfix" style="padding-bottom:1rem;"></div>
+
+																      <!-- Switch -->
+																	  <div class="switch">
+																	    <label>
+																	      Off
+																	      <input type="checkbox">
+																	      <span class="lever"></span>
+																	      Cluster by Samples
+																	    </label>
+																	  </div>
+																	<div class="clearfix" style="padding-bottom:3rem;"></div>
+															       
+																<p>
+																	<input type="checkbox" id="test7" checked="checked" />
+																	<label for="test7">Volcano plot</label>
+																</p> 
+
+																	<div class="clearfix" style="padding-bottom:1rem;"></div>
+
+																  <form action="#">
+																    <p>
+																      <input name="group1" type="radio" id="test8" />
+																      <label for="test8">Bonferroni</label>
+																    </p>
+																    <p>
+																      <input name="group1" type="radio" id="test9" />
+																      <label for="test9">FDR</label>
+																    </p>
+																    <p>
+																      <input name="group1" type="radio" id="test10" />
+																      <label for="test10">BH</label>
+																    </p>
+																    <p>
+																      <input name="group1" type="radio" id="test11" />
+																      <label for="test11">BY</label>
+																    </p>
+																    <p>
+																      <input name="group1" type="radio" id="test12" />
+																      <label for="test12">Hommel</label>
+																    </p>
+																    <p>
+																      <input name="group1" type="radio" id="test13" />
+																      <label for="test13">Hochberg</label>
+																    </p>
+																    <p>
+																      <input name="group1" type="radio" id="test14" />
+																      <label for="test14">Holm</label>
+																    </p>
+																    <p>
+																      <input name="group1" type="radio" id="test15" />
+																      <label for="test15">None</label>
+																    </p>
+																    </p>
+																  </form>
+        
+
+																	<div class="clearfix" style="padding-top:1rem;"></div>
+																	<div class="clearfix" style="padding-bottom:1rem;"></div>
+
+													  </form>      
+			                                    </div>
+
+                                </div>
+                            </li>
+                        
+                        </ul>
+                        <button class="btn waves-effect waves-light light-blue accent-4 btn-large right analyse_geo_btn" id="analyse_geo_btn" type="submit" value="input">Analyse GEO Dataset</button>
+                    </form>
+                    <div class="clearfix" style="padding-bottom:1rem;"></div>
+                </div>
+                <div class="card-reveal"><span class="card-title grey-text text-darken-4">GEO Dataset:<span id="dataset_accession">GDS5093</span><i class="material-icons right">close</i></span>
+                    <p><span class="light-blue-text text-darken-3 dataset_info_title" id="dataset_title">Acute Dengue patients: whole blood</span></p>
+                    <p><span class="light-blue-text text-darken-3 dataset_info_header">Summary:</span>
+                        <br><span id="dataset_summary">Analysis of blood from patients with acute Dengue virus (DENV) infection and during convalescence. Dengue is a mosquito-borne infectious disease and Dengue Hemorrhagic Fever is a life-threatening illness. Results provide insight into molecular mechanisms underlying host response to DENV infection.</span></p>
+                    <p><span class="light-blue-text text-darken-3 dataset_info_header">Organism:</span>
+                        <br><span id="dataset_organism">Homo sapiens</span></p>
+                    <p><span class="light-blue-text text-darken-3 dataset_info_header">Citations:</span>
+                        <br><span id="dataset_citation">Nucleic Acids Res. 2005 Jan 1;33 Database Issue:D562-6</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="section" id="results_section" style="display: none;"></div>
+    </div>
+    <div class="modal" id="loading_modal" style="z-index: 1003; display: none; opacity: 0; transform: scaleX(0.7); top: 0px;">
+        <div class="modal-content">
+            <h4 id="model_header_text">Loading GEO Dataset: GDS5093</h4>
+            <p id="model_text">This should take a few seconds. Please leave this page open</p>
+            <div class="progress">
+                <div class="indeterminate light-blue accent-2"></div>
+            </div>
+        </div>
+    </div>
+    <!--Dropdown Structure-->
+    <script src="./GeoDiver_files/jquery-2.1.1.min.js"></script>
+    <script src="./GeoDiver_files/materialize.min.js"></script>
+    <script src="./GeoDiver_files/jquery.validate.min.js"></script>
+    <script src="./GeoDiver_files/datatable-materialize.js"></script>
+    <script src="./GeoDiver_files/geodiver.js"></script>
+</body>
+
+</html>
