@@ -48,7 +48,7 @@ scalable <- function(X) {
 if (is.na(argv$geodbpath)) {
   gset <- getGEO(argv$accession, GSEMatrix = TRUE)
 } else {
-  gset <- getGEO(filename = argv$geodbpath, GSEMatrix = TRUE)
+  gset <- getGEO(filename = argv$geodbpath, GSEMatrix = TRUE, AnnotGPL=TRUE)
 }
 
 if (grepl('^GDS', argv$accession)) {
@@ -58,11 +58,11 @@ if (grepl('^GDS', argv$accession)) {
   gpl            <- getGEO(Meta(gset)$platform)
   featureData    <- gpl@dataTable@table
 } else if (grepl('^GSE', argv$accession)) {
-  if (length(gset) > 1) idx <- grep(gset@annotation, attr(gse, "names")) else idx <- 1
-  eset           <- gset[[idx]]
-  gene.names     <- as.character(eset@featureData@data[, "Gene Symbol"])
-  organism       <- as.character(eset@featureData@data[, "Species Scientific Name"][1])
-  featureData    <- eset@featureData@data
+  eset        <- gset
+  gpl         <- getGEO(annotation(gset))
+  featureData <- gpl@dataTable@table
+  gene.names  <- featureData[, "Gene Symbol"]
+  organism    <- as.character(featureData[, "Species Scientific Name"][1])
 }
 
 X           <- exprs(eset) # Get Expression Data
@@ -70,12 +70,6 @@ pData       <- pData(eset)
 rownames(X) <- gene.names
 
 entrez.gene.id <- featureData[, 'ENTREZ_GENE_ID']
-# go.bio         <- featureData[, 'Gene Ontology Biological Process']
-# go.cell        <- featureData[, 'Gene Ontology Cellular Component']
-# go.mol         <- featureData[, 'Gene Ontology Molecular Function']
-# gene.titles    <- featureData[, 'Gene Title']
-# genes          <- data.frame(gene.names, entrez.gene.id, gene.titles, go.bio,
-                             # go.cell, go.mol)
 
 # KNN imputation
 if (ncol(X) == 2) {
