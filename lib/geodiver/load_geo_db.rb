@@ -83,8 +83,8 @@ module GeoDiver
         elsif geo_accession =~ /^GSE/
           parse_gse_db(data)
         end
-      # rescue
-      #   raise ArgumentError, 'GeoDiver was unable to download the GEO Database'
+      rescue
+        raise ArgumentError, 'GeoDiver was unable to download the GEO Database'
       end
 
       #
@@ -179,30 +179,40 @@ module GeoDiver
       #
       def parse_gds_factors(data)
         subsets = data.gsub(/\^DATA.*\n/, '').gsub(/\![dD]ata.*\n/, '')
-        results = {}
+        factors = {}
         subsets.lines.each_slice(5) do |subset|
           desc = subset[2].match(/\!subset_description = (.*)/)[1]
           type = subset[4].match(/\!subset_type = (.*)/)[1].gsub(' ', '.')
-          results[type] ||= []
-          results[type] << desc
+          factors[type] ||= {}
+          factors[type][:options] ||= []
+          factors[type][:options] << desc
+          factors[type][:value] = type
         end
-        results
+        factors
       end
 
       def parse_gse_factors(data)
         subsets = data.scan(/!Sample_characteristics_ch1\t(.*)/)
         factors = {}
-        subsets.each do |feature|
+        subsets.each_with_index do |feature, idx|
           a = feature[0].split(/\"?\t?\"/)
-          a.shift
+          a.delete_if { |e| e =~ /^\s+$/ || e.empty? }
           a.each do |e|
             split = e.split(': ')
-            factors[split[0]] ||= []
-            factors[split[0]] << split[1]
+            type = split[0]
+            factors[type] ||= {}
+            if idx == 0
+              factors[type][:value] = "characteristics_ch1"
+            else
+              factors[type][:value] = "characteristics_ch1.#{idx}"
+            end
+
+            factors[type][:options] ||= []
+            factors[type][:options] << split[1]
           end
         end
-        factors.each { |_, e| e.uniq! }
-        factors.delete_if { |_, e| e.size == 1 }
+        factors.each { |_, e| e[:options].uniq! }
+        factors.delete_if { |_, e| e[:options].size == 1 }
         factors
       end
 
@@ -249,7 +259,7 @@ module GeoDiver
         if geo_accession =~ /^GDS/
           "--geodbpath #{File.join(geo_db_dir, "#{geo_accession}.soft.gz")}"
         else
-          "--geodbpath #{File.join(geo_db_dir, "#{geo_accession}_series_matrix.txt.gz")}"
+          # "--geodbpath #{File.join(geo_db_dir, "#{geo_accession}_series_matrix.txt.gz")}"
         end
       end
     end

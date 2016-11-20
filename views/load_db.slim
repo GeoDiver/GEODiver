@@ -11,9 +11,9 @@
       input type="hidden" name="user" value="#{Base64.encode64(session[:user].info['email']).chomp}"
     .input-field.col.s12
       span.light-blue-text.text-darken-3.heading2 Select Factor to Analyse
-      - @geo_db_results['Factors'].keys.each do |factor|
+      - @geo_db_results['Factors'].each do |factor, factorData|
         p
-          input id="#{factor.gsub(/[\/\\\.\:\#\s]/, '_')}" name="factor" type="radio" value="#{factor}"
+          input id="#{factor.gsub(/[\/\\\.\:\#\s]/, '_')}" name="factor" type="radio" value="#{factorData[:value]}"
           label for="#{factor.gsub(/[\\\.\:\#\s]/, '_')}"  
             | #{factor.split(/[.\s]/).map(&:capitalize).join(' ')}
     br
@@ -25,14 +25,14 @@
           .input-field.col.s12.m6
             select#groupaSelect multiple="" name="groupa[]"
               option disabled="" selected="" value=""  Choose your option(s) (Group A)
-              - phenotypes.each do |p|
+              - phenotypes[:options].each do |p|
                 option value="#{p}"
                   | #{p.split(/[\s]/).map(&:capitalize).join(' ')}
             label  Group A
           .input-field.col.s12.m6
             select#groupbSelect multiple="" name="groupb[]"
               option disabled="" selected="" value=""  Choose your option(s)  (Group B)
-              - phenotypes.each do |p|
+              - phenotypes[:options].each do |p|
                 option  value="#{p}"
                   | #{p.split(/[\s]/).map(&:capitalize).join(' ')}
             label Group B

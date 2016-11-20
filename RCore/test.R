@@ -15,6 +15,7 @@ scalable <- function(X) {
 geodbpath <- '/Users/ismailm/.geodiver/DBs/GSE3541/GSE3541_series_matrix.txt.gz'
 
 gset <- getGEO(filename = geodbpath, GSEMatrix = TRUE, AnnotGPL=TRUE)
+gset <- getGEO('GSE3541', GSEMatrix = TRUE, AnnotGPL=TRUE)
 
 eset        <- gset
 gpl         <- getGEO(annotation(gset))
@@ -23,9 +24,16 @@ gene.names  <- featureData[, "Gene Symbol"]
 organism    <- as.character(featureData[, "Species Scientific Name"][1])
 
 X           <- exprs(gset) # Get Expression Data
-pData       <- pData(gset)
 rownames(X) <- gene.names
 
+
+
+
+
+
+
+
+pData       <- pData(gset)
 # KNN imputation
 if (ncol(X) == 2) {
   X <- X[complete.cases(X), ] # KNN does not work when there are only 2 samples
