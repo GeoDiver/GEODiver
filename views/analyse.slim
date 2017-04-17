@@ -3,13 +3,30 @@
     .card.analyse_card
       .card-content#load_geo_card
         form#load_geo_db
-          span.card-title.light-blue-text.text-darken-3 Analyse GEO Datasets
-          #search_geo_dataset.input-field
-            i.material-icons.prefix search
-            input#search_geo_db name="geo_db" type="text" autocomplete="off" spellcheck="false" placeholder="Enter a GEO Dataset Accession Number (e.g. GDS5093)."
-            label for="search_geo_db"  Search GEO Dataset
-          p#exemplar_result.left.light-blue-text.text-darken-3 style="padding-left:3rem; padding-bottom:1rem; cursor:pointer;"
-            | Analyse Exemplar GEO Dataset (GDS5093)
+          span.card-title.light-blue-text.text-darken-3 Analyse Gene Expression Datasets
+          .row
+            .col.s12
+              ul#input_type.tabs
+                li.tab.col.s6
+                  a.light-blue-text.text-darken-3 href="#ncbi_geo_search"
+                    | NCBI GEO Datasets
+                li.tab.col.s6
+                  a.light-blue-text.text-darken-3 href="#upload"
+                    | Upload a file
+                .indicator.blue style="z-index:1"
+          .row
+            #ncbi_geo_search.col.s12
+              #search_geo_dataset.input-field
+                i.material-icons.prefix search
+                input#search_geo_db name="geo_db" type="text" autocomplete="off" spellcheck="false" placeholder="Enter a GEO Dataset Accession Number (e.g. GDS5093)."
+                label for="search_geo_db"  Search GEO Dataset
+              p#exemplar_result.left.light-blue-text.text-darken-3 style="padding-left:3rem; padding-bottom:1rem; cursor:pointer;"
+                | Analyse Exemplar GEO Dataset (GDS5093)
+            #upload
+              .file-field.input-field
+                #qq-file-btn.btn.waves-effect.waves-light.light-blue.accent-4 File
+                .file-path-wrapper
+                  input#qq-filename.file-path.validate name="qq-filename" type="text"
           button.btn.waves-effect.waves-light.light-blue.accent-4.btn-large.load_geo_db_btn type="submit" value="input"
             | Load GEO Dataset
             i.material-icons.right send
