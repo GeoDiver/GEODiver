@@ -1,7 +1,7 @@
 #results_section.container style="padding-top:2rem;"
   .row
     - if @my_results.nil?
-    - else 
+    - else
       - @my_results.each do |result|
         .col.s12.m6
           .card.hoverable data-user="#{result['user']}" data-geodb="#{result['geo_db']}" data-result="#{result['uniq_result_id']}" data-share-link="#{result['share_url']}" data-results-link="#{result['results_url']}"
@@ -17,14 +17,14 @@
                   i.material-icons  info_outline
                 a#download-all-results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 data-download="#{result['assets_path']}/#{result['geo_db']}_geodiver_results.zip" style="min-width:36px;padding:0 8px;margin-right:0px"
                   i.material-icons  file_download
-                a#delete_results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px" 
+                a#delete_results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
                   i.material-icons  delete
                 - if result['share']
                   a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
                     i.material-icons  link
                   a#share_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
                     i.material-icons  share
-                - else 
+                - else
                   a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
                     i.material-icons  link
                   a#share_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"

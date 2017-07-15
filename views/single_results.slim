@@ -7,14 +7,14 @@
             i.material-icons  info_outline
           a#download-all-results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 data-download="#{@results['assets_path']}/#{@results['geo_db']}_geodiver_results.zip" style="min-width:36px;padding:0 8px;margin-right:0px"
             i.material-icons  file_download
-          a#delete_results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px" 
+          a#delete_results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
             i.material-icons  delete
           - if File.exist? File.join(@results['full_path'], '.share')
             a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
               i.material-icons  link
             a#share_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
               i.material-icons  share
-          - else 
+          - else
             a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
               i.material-icons  link
             a#share_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
@@ -26,7 +26,7 @@
           span#overview.card-title.light-blue-text.text-darken-3 style=("padding-left:0;") data-overview-json="#{@results['assets_path']}/data.json"
             |  Overview (PCA, HCA, Boxplots)
           p.section
-            span.light-blue-text.text-darken-3.heading2 Overview Boxplots 
+            span.light-blue-text.text-darken-3.heading2 Overview Boxplots
             img.materialboxed src="#{@results['assets_path']}/boxplot.png" width="100%"
           p.section
             span.light-blue-text.text-darken-3.heading2 Principal Component Analysis
@@ -80,7 +80,7 @@
                 .clearfix
                 p.select_pc3_validations.red-text style="font-size: .8rem; padding-left:1rem;"
                 #pca3d_plot style=("height: 70vh;")
-      - else 
+      - else
         .card-action
           span#overview.card-title.light-blue-text.text-darken-3 style=("padding-left:0;")
             |  Overview (PCA, HCA, Boxplots)
@@ -121,7 +121,7 @@
                           th ID
                           th logFC
                           th AveExpr
-                          th t Value 
+                          th t Value
                           th P Value
                           th Adjusted P Value
                           th B
@@ -134,7 +134,7 @@
               p.section
                 span.light-blue-text.text-darken-3.heading2 Volcano Plots
                 br
-              #volcano_plot style=("width: 100%; height: 600px;") 
+              #volcano_plot style=("width: 100%; height: 600px;")
                 /! Plotly chart will be drawn inside this DIV
           - else
             #DGEA.col.s12

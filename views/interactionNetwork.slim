@@ -1,10 +1,10 @@
 tr.child id="#{params[:path_id]}ChildRow"
-  td colspan="8" 
+  td colspan="8"
     div id="#{params[:path_id]}Plot"
       p
         img.left src="#{uri('assets/img/interaction_colorkey.svg')}" alt="colorKey" style="height: 40px;"
         a.light-blue-text.text-darken-3.heading2 target="_blank" href="http://www.genome.jp/dbget-bin/www_bget?pathway+#{params[:path_id]}"
-          strong  View more information on KEGG 
+          strong  View more information on KEGG
           i.material-icons  open_in_new
         a target="_blank" href="http://www.genome.jp/dbget-bin/www_bget?pathway+#{params[:path_id]}"
           img src="#{request.base_url}/#{@interaction_img}" width="100%" /

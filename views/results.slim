@@ -3,7 +3,7 @@
     .actions.right style=" display: -webkit-flex; margin-left: auto; padding: 10px 0;"
       a#download-all-results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 data-download="#{@results[:assets_path]}/#{@results[:geo_db]}_geodiver_results.zip" style="min-width:36px;padding:0 8px;margin-right:0px"
         i.material-icons  file_download
-      a#delete_results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px" 
+      a#delete_results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
         i.material-icons  delete
       a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
         i.material-icons  link
@@ -15,10 +15,10 @@
       | GeoDiver Results: #{@results[:geo_db]}
   - if @results[:overview_exit_code].to_i == 0
     .card-action
-      span#overview.card-title.light-blue-text.text-darken-3 style=("padding-left:0;") data-overview-json="#{@results[:assets_path]}/data.json"
+      span#overview.card-title.light-blue-text.text-darken-3 style=("padding-left:0;") data-overview-json="#{@results[:assets_path]}/pca_data.json"
         |  Overview (PCA, HCA, Boxplots)
       p.section
-        span.light-blue-text.text-darken-3.heading2 Overview Boxplots 
+        span.light-blue-text.text-darken-3.heading2 Overview Boxplots
         img.materialboxed src="#{@results[:assets_path]}/boxplot.png" width="100%"
       p.section
         span.light-blue-text.text-darken-3.heading2 Principal Component Analysis
@@ -113,7 +113,7 @@
                       th ID
                       th logFC
                       th AveExpr
-                      th t Value 
+                      th t Value
                       th P Value
                       th Adjusted P Value
                       th B
@@ -126,9 +126,9 @@
           p.section
             span.light-blue-text.text-darken-3.heading2 Volcano Plots
             br
-          #volcano_plot style=("width: 100%; height: 600px;") 
+          #volcano_plot style=("width: 100%; height: 600px;")
             /! Plotly chart will be drawn inside this DIV
-      - else 
+      - else
         #DGEA.col.s12
           p.red-text.text-lighten-2 style="font-size:1.5rem;"
             | <strong>Apologies, there was an error in running the DGEA Script. Please try again.</strong>
@@ -163,7 +163,7 @@
                       th Q Value
                       th Set Size
                       th
-      - else 
+      - else
         #GSEA.col.s12
           p.red-text.text-lighten-2 style="font-size:1.5rem;"
             | <strong>Apologies, there was an error in running the GAGE Script. Please try again.</strong>
