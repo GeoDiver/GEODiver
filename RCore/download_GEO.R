@@ -76,7 +76,7 @@ tryCatch({
   }, error=function(e) {
     cat("ERROR: Unable to generate gset", file=stderr())
     cat(e, file=stderr())
-    quit(save = "no", status = 1, runLast = FALSE)
+    quit(save = "no", status = 2, runLast = FALSE)
   })
 })
 
@@ -93,14 +93,14 @@ if (grepl('^GDS', argv$accession)) {
   }, error=function(e) {
     cat("ERROR: Unable to generate Eset File.", file=stderr())
     cat(e, file=stderr())
-    quit(save = "no", status = 2, runLast = FALSE)
+    quit(save = "no", status = 3, runLast = FALSE)
   })
   tryCatch({
     featureData    <- eset@featureData@data
   }, error=function(e) {
     cat("ERROR: Unable to extract feature Data.", file=stderr())
     cat(e, file=stderr())
-    quit(save = "no", status = 3, runLast = FALSE)
+    quit(save = "no", status = 4, runLast = FALSE)
   })
   if ("Gene Symbol" %in% colnames(featureData)) {
     gene.names   <- as.character(featureData[, "Gene Symbol"])
@@ -110,7 +110,7 @@ if (grepl('^GDS', argv$accession)) {
     gene.names   <- as.character(featureData[, "PLATE_ID"])
   } else {
     cat("ERROR: Bad dataset: Unable to find Symbol in the featureData object", file=stderr())
-    quit(save = "no", status = 4, runLast = FALSE)
+    quit(save = "no", status = 5, runLast = FALSE)
   }
   if ("Species Scientific Name" %in% colnames(featureData)) {
     organism     <- as.character(featureData[, "Species Scientific Name"][1])
@@ -118,7 +118,7 @@ if (grepl('^GDS', argv$accession)) {
     organism     <- as.character(featureData[, "Species"][1])
   } else {
     cat("ERROR: Bad dataset: Unable to find Species in the featureData object", file=stderr())
-    quit(save = "no", status = 5, runLast = FALSE)
+    quit(save = "no", status = 6, runLast = FALSE)
   }
 }
 
@@ -142,7 +142,7 @@ tryCatch({
   X          <- imputation$data
 }, error=function(e) {
   cat("ERROR: Bad dataset: Unable to run KNN imputation on the dataset.", file=stderr())
-  quit(save = "no", status = 6, runLast = FALSE)
+  quit(save = "no", status = 7, runLast = FALSE)
 })
 
 # If not log transformed, do the log2 transformed
