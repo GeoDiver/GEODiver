@@ -13,10 +13,9 @@ if (!GD) {
 
 // GD module
 (function() {
-
   GD.setUpValidatorDefaults = function() {
-    $.validator.addMethod('geoDb', function (value) { 
-        return /^G[DS][SE]\d\d?\d?\d?\d?$/i.test(value); 
+    $.validator.addMethod('geoDb', function (value) {
+        return /^G[DS][SE]\d\d?\d?\d?\d?$/i.test(value);
     }, 'Please enter a valid GEO dataset accession number (in the format GDSxxxx).');
 
     $.validator.addMethod('checkIfGeoExists', function(value) {
@@ -46,7 +45,7 @@ if (!GD) {
     'use strict';
     $('#load_geo_db').validate({
       rules: {
-        geo_db: { 
+        geo_db: {
           geoDb: true,
           checkIfGeoExists: true,
           required: true
@@ -135,6 +134,10 @@ if (!GD) {
         $('.select_factors_validations').text('');
         $('#results_section').empty();
         var geo_db = $('input[name=geo_db]').val().toUpperCase();
+        $('input[name="dgea_cluster_by_genes"]').val($('input[name="dgea_cluster_by_genes"]').is(':checked'));
+        $('input[name="dgea_cluster_by_samples"]').val($('input[name="dgea_cluster_by_samples"]').is(':checked'));
+        $('input[name="gsea_cluster_by_genes"]').val($('input[name="gsea_cluster_by_genes"]').is(':checked'));
+        $('input[name="gsea_cluster_by_samples"]').val($('input[name="gsea_cluster_by_samples"]').is(':checked'));
         $('#modal_header_text').text('Analysing GEO Dataset: ' + geo_db);
         $('#modal_text').text('This should take a few minutes. Please leave this page open');
         $('#loading_modal').modal({ dismissible: false});
@@ -241,6 +244,13 @@ if (!GD) {
           $('.select_pc3_validations').text('Please select the Principle components to analyse.');
           return false;
         }
+        // Manually check if PC2dOption1 == PC2dOption2
+        if (( $('select[name="PC3doption1"]').val() === $('select[name="PC3doption2"]').val() ) ||
+            ( $('select[name="PC3doption3"]').val() === $('select[name="PC3doption2"]').val() ) ||
+            ( $('select[name="PC3doption1"]').val() === $('select[name="PC3doption3"]').val() ) ) {
+          $('.select_pc3_validations').text('Please select different principal components to analyse.');
+          return false;
+        }
         $('.select_pc3_validations').text('');
         event.preventDefault(); // because we're not submitting at all
         $('#principle_plot').empty();
@@ -257,11 +267,17 @@ if (!GD) {
     $('#pca2d_redraw').validate({
       rules: {},
       submitHandler: function(form, event) {
-        // Manually check if groupa / groupb is empty
+        // Manually check if PC2dOption1 / PC2dOption2 is empty
         if ( $.isEmptyObject( $('select[name="PC2doption1"]').val() )  || $.isEmptyObject( $('select[name="PC2doption2"]').val() ) ) {
-          $('.select_pc2_validations').text('Please select the Principle components to analyse.');
+          $('.select_pc2_validations').text('Please select the principal components to analyse.');
           return false;
-        }        
+        }
+        // Manually check if PC2dOption1 == PC2dOption2
+        if ( $('select[name="PC2doption1"]').val() === $('select[name="PC2doption2"]').val() ) {
+          $('.select_pc2_validations').text('Please select different principal components to analyse.');
+          return false;
+        }
+
         $('.select_pc2_validations').text('');
         event.preventDefault(); // because we're not submitting at all
         $('#principle_plot').empty();
@@ -294,7 +310,7 @@ if (!GD) {
       if ($(this).attr('href') === '#pca2d' ) {
         Plotly.Plots.resize(GD.pca2dScatterPlot);
       } else {
-        Plotly.Plots.resize(GD.pca3dScatterPlot);  
+        Plotly.Plots.resize(GD.pca3dScatterPlot);
       }
     });
 
@@ -319,9 +335,13 @@ if (!GD) {
   };
 
   GD.create2dPCAScatterPlot = function(pcdata, x, y) {
-    var group1, group2, data, layout, parentWidth, PCAplotGd3, pcaPlot;
-    group1 = { x: pcdata[ x + '.Group1'], y: pcdata[y + '.Group1'], text: pcdata.Group1, type: 'scatter', mode: 'markers', name: 'Group1', marker: { symbol: 'circle' } };
-    group2 = { x: pcdata[ x + '.Group2'], y: pcdata[y + '.Group2'], text: pcdata.Group2, type: 'scatter', mode: 'markers', name: 'Group2', marker: { symbol: 'square' } };
+    var group1, group2, group1_name, group2_name, data, layout, parentWidth, PCAplotGd3, pcaPlot;
+    group1_name = pcdata.group1[0];
+    group2_name = pcdata.group2[0];
+    console.log(group1_name);
+    console.log(group2_name);
+    group1 = { x: pcdata[ x + '.' + group1_name], y: pcdata[y + '.' + group1_name], text: pcdata.Group1, type: 'scatter', mode: 'markers', name: group1_name, marker: { symbol: 'circle' } };
+    group2 = { x: pcdata[ x + '.' + group2_name], y: pcdata[y + '.' + group2_name], text: pcdata.Group2, type: 'scatter', mode: 'markers', name: group2_name, marker: { symbol: 'square' } };
     data = [group1, group2];
     layout = { xaxis: { title: x }, yaxis: { title: y }, hovermode: 'closest' };
 
@@ -336,9 +356,11 @@ if (!GD) {
   };
 
   GD.create3dPCAScatterPlot = function(pcdata, x, y, z) {
-    var group1, group2, data, layout, parentWidth, PCAplotGd3, pcaPlot;
-    group1 = { x: pcdata[ x + '.Group1'], y: pcdata[y + '.Group1'], z: pcdata[ z + '.Group1'], text: pcdata.Group1, type: 'scatter3d', mode: 'markers', name: 'Group1', marker: { symbol: 'circle' } };
-    group2 = { x: pcdata[ x + '.Group2'], y: pcdata[y + '.Group2'], z: pcdata[ z + '.Group2'], text: pcdata.Group2, type: 'scatter3d', mode: 'markers', name: 'Group2', marker: { symbol: 'square' } };
+    var group1, group2, group1_name, group2_name, data, layout, parentWidth, PCAplotGd3, pcaPlot;
+    group1_name = pcdata.group1[0];
+    group2_name = pcdata.group2[0];
+    group1 = { x: pcdata[ x + '.' + group1_name], y: pcdata[y + '.' + group1_name], z: pcdata[ z + '.' + group1_name], text: pcdata.Group1, type: 'scatter3d', mode: 'markers', name: group1_name, marker: { symbol: 'circle' } };
+    group2 = { x: pcdata[ x + '.' + group2_name], y: pcdata[y + '.' + group2_name], z: pcdata[ z + '.' + group2_name], text: pcdata.Group2, type: 'scatter3d', mode: 'markers', name: group2_name, marker: { symbol: 'square' } };
     data = [group1, group2];
     layout = { scene: {xaxis: { title: x }, yaxis: { title: y }, zaxis: {title: z} }, hovermode: 'closest' };
 
@@ -366,7 +388,7 @@ if (!GD) {
     return pcaPlot;
   };
 
-  // 
+  //
   GD.createVolcanoPlot = function(xValues, yValues, genes) {
     var trace1 = { x: xValues, y: yValues, text: genes, mode: 'markers', type: 'scatter', name: 'volcano_plot', marker: { size: 7.5 } };
     var data = [trace1];
@@ -381,8 +403,8 @@ if (!GD) {
   };
 
   GD.createExpressionPlot = function (response, geneId) {
-    var trace1 = { x: response.group1.x, y: response.group1.y, type: 'bar', name: 'Group 1' };
-    var trace2 = { x: response.group2.x, y: response.group2.y, type: 'bar', name: 'Group 2' };
+    var trace1 = { x: response.group1.x, y: response.group1.y, type: 'bar', name: response.group1_name[0] };
+    var trace2 = { x: response.group2.x, y: response.group2.y, type: 'bar', name: response.group2_name[0] };
     var data = [trace1, trace2];
     var layout = { barmode: 'group', xaxis: { title: 'Sample', tickangle: -40, position: -0.5}, yaxis: { title: 'Expression' } };
     var parentWidth = 100;
@@ -396,12 +418,10 @@ if (!GD) {
     });
   };
 
-
   ///// General GD functions
-
   GD.initializeToptable = function(dataset, tableId, tableWrapperId) {
     dataset = GD.addPlotIconToTopTable(dataset);
-    var dt = $('#' + tableId).dataTable({
+    $('#' + tableId).dataTable({
       "oLanguage": {
         "sStripClasses": "",
         "sSearch": "",
@@ -472,7 +492,7 @@ if (!GD) {
   };
 
   GD.initialiatizePcaScatterPlot = function(pcnames) {
-    $.each(pcnames, function(key,value) {   
+    $.each(pcnames, function(key,value) {
       $('#PC2doption1').append($("<option></option>")
         .attr("value", value).text(value));
       $('#PC2doption2').append($("<option></option>")
@@ -487,7 +507,7 @@ if (!GD) {
     GD.loadPcRedrawValidation();
   };
 
-  // 
+  //
   GD.addFactorToggle = function() {
     $("input:radio[name=factor]").click(function() {
       var target = '#' + $(this).attr('id') + '_select';
@@ -508,9 +528,9 @@ if (!GD) {
   GD.addAdvParamLogic = function() {
     GD.show_hide_div('#DGEA_input', '#DGEAparams');
     GD.show_hide_div('#GSEA_input', '#GSEAparams');
-    GD.show_hide_div('#dgea_toptable', '#dgea_toptable_params');    
-    GD.show_hide_div('#dgea_heatmap', '#dgea_heatmap_params');    
-    GD.show_hide_div('#gsea_heatmap', '#gsea_heatmap_params');    
+    GD.show_hide_div('#dgea_toptable', '#dgea_toptable_params');
+    GD.show_hide_div('#dgea_heatmap', '#dgea_heatmap_params');
+    GD.show_hide_div('#gsea_heatmap', '#gsea_heatmap_params');
     $("input:radio[name=gsea_type]").click(function() {
       if ( $("input:radio[name=gsea_type]:checked").val() == 'ExpVsCtrl') {
         $('#gage_select_control').show();
@@ -557,10 +577,10 @@ if (!GD) {
       $('#loading_modal').modal({ dismissible: false});
       $('#loading_modal').modal('open');
       $.fileDownload($(this).data('download'), {
-          successCallback: function(url) {
+          successCallback: function() {
             $('#loading_modal').modal('close');
           },
-          failCallback: function(responseHtml, url) {
+          failCallback: function() {
             $('#loading_modal').modal('close');
           }
       });
@@ -589,7 +609,7 @@ if (!GD) {
         type: 'POST',
         url: '/delete_result',
         data: {result_id: resultId, geo_db: geoDb},
-        success: function(response) {
+        success: function() {
           location.reload();
         },
         error: function(e, status) {
@@ -646,7 +666,7 @@ if (!GD) {
   };
 
   GD.remove_share = function () {
-    $('.remove_link').click(function(event) {
+    $('.remove_link').click(function() {
       var share_link =  $(this).closest('.modal').data('share-link');
       var remove_link = share_link.replace(/\/sh\//, '/rm/');
       $('#share_the_link_btn').hide();
@@ -709,12 +729,10 @@ if (!GD) {
       cookie_policy: 'single_host_origin',
       client_id: GD.CLIENT_ID,
       scope: 'email'
-    }, function(response) {
-      return;
     });
     $('.login_button').on('click', function(e) {
       e.preventDefault();
-      /** global: gapi */ 
+      /** global: gapi */
       gapi.auth.authorize({
         immediate: false,
         response_type: 'code',
@@ -728,7 +746,7 @@ if (!GD) {
             type: 'POST',
             url: "/auth/google_oauth2/callback",
             data: response,
-            success: function(data) {
+            success: function() {
               // TODO - just update the DOM instead of a redirect
               $(location).attr('href', 'http://' + window.location.host + '/analyse');
             }
@@ -742,7 +760,7 @@ if (!GD) {
 }());
 
 (function($) {
-  $.fn.exists = function(){return this.length>0;};
+  $.fn.exists = function() {return this.length>0;};
 
   // Fn to allow an event to fire after all images are loaded
   $.fn.imagesLoaded = function () {
@@ -751,7 +769,7 @@ if (!GD) {
     if (!$imgs.length) {return $.Deferred().resolve().promise();}
 
     // for each image, add a deferred object to the array which resolves when the image is loaded (or if loading fails)
-    var dfds = [];  
+    var dfds = [];
     $imgs.each(function(){
         var dfd = $.Deferred();
         dfds.push(dfd);
