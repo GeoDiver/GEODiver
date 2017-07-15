@@ -23,7 +23,7 @@ module GeoDiver
     before :each do
       GeoDiver.init(config_file: empty_config)
 
-      @params   = {
+      @params = {
         'geo_db' => 'GDS5093',
         'factor' => 'disease.state',
         'groupa' => ['Dengue Fever', 'Dengue Hemorrhagic Fever'],

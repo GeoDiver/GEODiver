@@ -153,9 +153,8 @@ module GeoDiver
         " --dbrdata #{db_rdata} --rundir '#{@run_dir}/'" \
         " --analyse 'Boxplot,PCA'" \
         " --factor \"#{@params['factor']}\"" \
-        " --popA \"#{to_comma_delimited_string(@params['groupa'])}\"" \
-        " --popB \"#{to_comma_delimited_string(@params['groupb'])}\"" \
-        " --popname1 'Group1' --popname2 'Group2'" \
+        " --pop_a \"#{to_comma_delimited_string(@params['groupa'])}\"" \
+        " --pop_b \"#{to_comma_delimited_string(@params['groupb'])}\"" \
         ' --dev'
       end
 
@@ -165,18 +164,16 @@ module GeoDiver
         " --dbrdata #{db_rdata} --rundir '#{@run_dir}/'" \
         " --analyse '#{analyses_to_carry_out.join(',')}'" \
         " --factor \"#{@params['factor']}\"" \
-        " --popA \"#{to_comma_delimited_string(@params['groupa'])}\"" \
-        " --popB \"#{to_comma_delimited_string(@params['groupb'])}\"" \
-        " --popname1 'Group1' --popname2 'Group2'" \
+        " --pop_a \"#{to_comma_delimited_string(@params['groupa'])}\"" \
+        " --pop_b \"#{to_comma_delimited_string(@params['groupb'])}\"" \
         " --topgenecount #{@params['dgea_number_top_genes']} " \
-        ' --foldchange 0 --thresholdvalue 0' \
         " --distance '#{@params['dgea_heatmap_distance_method']}'" \
         " --clustering '#{@params['dgea_heatmap_clustering_method']}'" \
         " --clusterby '#{dgea_clusterby_method}'" \
         " --heatmaprows #{@params['dgea_heatmap_rows']} " \
         " --adjmethod '#{@params['dgea_volcano_pValue_cutoff']}'" \
-        " #{option_to_flag(@params['gsea_cluster_by_genes'], '--dendrow')}" \
-        " #{option_to_flag(@params['gsea_cluster_by_samples'], '--dendcol')}" \
+        " #{option_to_flag(@params['dgea_cluster_by_genes'], '--dendrow')}" \
+        " #{option_to_flag(@params['dgea_cluster_by_samples'], '--dendcol')}" \
         ' --dev'
       end
 
@@ -184,8 +181,8 @@ module GeoDiver
         "Rscript #{File.join(GeoDiver.root, 'RCore/gage.R')}" \
         " --dbrdata #{db_rdata} --rundir '#{@run_dir}/'" \
         " --factor \"#{@params['factor']}\"" \
-        " --popA \"#{to_comma_delimited_string(@params['groupa'])}\"" \
-        " --popB \"#{to_comma_delimited_string(@params['groupb'])}\"" \
+        " --pop_a \"#{to_comma_delimited_string(@params['groupa'])}\"" \
+        " --pop_b \"#{to_comma_delimited_string(@params['groupb'])}\"" \
         " --comparisontype '#{@params['gsea_type']}'"\
         " --genesettype '#{@params['gsea_dataset']}'" \
         " --distance '#{@params['gsea_heatmap_distance_method']}'" \
@@ -242,7 +239,7 @@ module GeoDiver
       end
 
       def option_to_flag(option, return_flag)
-        return_flag if option == 'on'
+        return_flag if option == 'true'
       end
 
       def db_rdata
