@@ -35,10 +35,10 @@ module GeoDiver
       end
 
       def create_interactions(params, email)
-        run_interaction_analysis(params, email)
-        run_dir = generate_relative_results_link(email, params['geo_db'],
-                                                 params['result_id'])
-        File.join(run_dir, "#{params[:path_id]}.gage_pathway.multi.png")
+        output_file = run_interaction_analysis(params, email)
+        relative_dir = generate_relative_results_link(email, params['geo_db'],
+                                                      params['result_id'])
+        File.join(relative_dir, File.basename(output_file))
       end
 
       private
@@ -64,21 +64,23 @@ module GeoDiver
         " --rundir '#{run_dir}/' --geneid '#{params[:gene_id]}'"
       end
 
-      def assert_expression_output
-        true
+      def assert_expression_output(output_file)
+        return false if output_file.empty?
+        output_file[0]
       end
 
       def run_interaction_analysis(params, email)
         run_dir = File.join(users_dir, email, params['geo_db'],
                             params['result_id'])
-        output_file = File.join(run_dir,
-                                "#{params[:path_id]}.gage_pathway.multi.png")
-        unless File.exist? output_file
+        out_file = File.join(run_dir, "#{params[:path_id]}.gage_pathway*.png")
+        output_file = Dir.glob(out_file)
+        if output_file.empty?
           logger.debug("Running CMD: #{interaction_cmd(run_dir, params)}")
           Dir.chdir(run_dir) { system(interaction_cmd(run_dir, params)) }
           remove_unwanted_files(run_dir, params)
+          output_file = Dir.glob(out_file)
         end
-        assert_expression_output
+        assert_expression_output(output_file)
       end
 
       def interaction_cmd(run_dir, params)
