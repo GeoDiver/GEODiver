@@ -127,3 +127,32 @@ A Config file can be used to specify arguments - the default location of this fi
 <hr>
 
 This program was developed at [QMUL](http://sbcs.qmul.ac.uk) as part of the [Bioinformatics Masters Course](http://www.qmul.ac.uk/postgraduate/taught/coursefinder/courses/121410.html).
+
+## Easy setup using Docker (alternative)
+
+If you run into issues trying to setup the above environment to run GeoDiver, we also provide a solution with Docker.
+
+First, make sure your shell environment has your Google credentials (see [Google API Setup](#google-api-setup))
+
+```bash
+export GOOGLE_KEY=YOUR-GOOGLE-API-KEY
+export GOOGLE_SECRET=YOUR-GOOGLE-API-SECRET
+```
+
+Run GeoDiver Docker container using image from Docker registry (fetched on first run)
+
+```bash
+docker run --rm -it -p 9292:9292 -v $(pwd):/root/.geodiver -e GOOGLE_KEY -e GOOGLE_SECRET geodiver/geodiver
+```
+
+Or, build your own Docker image locally from our Dockerfile
+
+```bash
+# Build local image
+git clone git@github.com:GeoDiver/GeoDiver.git
+cd GeoDiver
+docker build -t geodiver .
+
+# Run container using local image
+docker run --rm -it -p 9292:9292 -v $(pwd):/root -e GOOGLE_KEY -e GOOGLE_SECRET geodiver
+```
