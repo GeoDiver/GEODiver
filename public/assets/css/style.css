@@ -638,11 +638,13 @@ opacity: 0.8;
   }
 }
 
+/* temp fix to align the checkbox */
 .input-field.col .dropdown-content [type="checkbox"]+label {
   top: 0!important; /* previously 1px; */
   display: inline!important; /* previously inherits `display: inline-block;` from `[type="checkbox"]+label` */
 }
 
+/* temp fix to radio buttons clickable*/
 .input-field [type="checkbox"] + label,
 .input-field [type="radio"]:not(:checked) + label,
 .input-field [type="radio"]:checked + label {
