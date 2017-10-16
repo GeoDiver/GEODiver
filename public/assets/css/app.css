@@ -1711,3 +1711,8 @@ p {
 #gage_select_control {
   padding-left: 3rem;
 }
+
+.input-field .dropdown-content [type="checkbox"]+label {
+  top: 0; /* previously 1px; */
+  display: inline; /* previously inherits `display: inline-block;` from `[type="checkbox"]+label` */
+}
