@@ -637,3 +637,8 @@ opacity: 0.8;
     width: initial;
   }
 }
+
+.input-field.col .dropdown-content [type="checkbox"]+label {
+  top: 0!important; /* previously 1px; */
+  display: inline!important; /* previously inherits `display: inline-block;` from `[type="checkbox"]+label` */
+}
