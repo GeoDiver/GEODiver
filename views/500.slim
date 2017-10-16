@@ -5,5 +5,7 @@
       | <strong>Apologies, there was an error with your request. Please try again.</strong>
     p  Error Message: #{request.env['sinatra.error'].message}
     p
-      | If the error persists, please contact us at <a href="mailto:mail.geodiver@gmail.com?Subject=GeoDiver%20Issue" target="_top">email</a> or create an issue on github
-      a href="https://github.com/geodiver/geodiver/issues/"  https://github.com/geodiver/geodiver/issues/
+      | If the error persists, please contact us at
+      a.yellow-text.text-lighten-1 href="mailto:mail.geodiver@gmail.com?Subject=GeoDiver%20Issue" target="_top"  email
+      | or create an issue on github
+      a.yellow-text.text-lighten-1 href="https://github.com/geodiver/geodiver/issues/"  https://github.com/geodiver/geodiver/issues/
