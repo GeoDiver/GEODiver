@@ -42,9 +42,9 @@ data(bods)
 #############################################################################
 
 parser <- arg_parser("Input GEO Dataset")
-parser <- add_argument(parser, "--accession", default = "GSE55252",
+parser <- add_argument(parser, "--accession", default = "GSE65270",
                        help = "Accession Number of the GEO Database")
-parser <- add_argument(parser, "--outrdata", default = "GSE55252.RData",
+parser <- add_argument(parser, "--outrdata", default = "GSE65270.RData",
                        help = "Full path to the output rData file")
 parser <- add_argument(parser, "--geodbDir", default = ".",
                        help = "Full path to the database directory")
@@ -102,12 +102,23 @@ if (grepl('^GDS', argv$accession)) {
     cat(e, file=stderr())
     quit(save = "no", status = 4, runLast = FALSE)
   })
+  # https://www.ncbi.nlm.nih.gov/geo/info/platform.html#headers
   if ("Gene Symbol" %in% colnames(featureData)) {
     gene.names   <- as.character(featureData[, "Gene Symbol"])
   } else if ("Symbol" %in% colnames(featureData)) {
     gene.names   <- as.character(featureData[, "Symbol"])
   } else if ("PLATE_ID" %in% colnames(featureData)) {
     gene.names   <- as.character(featureData[, "PLATE_ID"])
+  } else if ("GB_ACC" %in% colnames(featureData)) {
+    gene.names   <- as.character(featureData[, "GB_ACC"])
+  } else if ("GB_LIST" %in% colnames(featureData)) {
+    gene.names   <- as.character(featureData[, "GB_LIST"])
+  } else if ("GI" %in% colnames(featureData)) {
+    gene.names   <- as.character(featureData[, "GI"])
+  } else if ("CLONE_ID" %in% colnames(featureData)) {
+    gene.names   <- as.character(featureData[, "CLONE_ID"])
+  } else if ("ID" %in% colnames(featureData)) {
+    gene.names   <- as.character(featureData[, "ID"])
   } else {
     cat("ERROR: Bad dataset: Unable to find Symbol in the featureData object", file=stderr())
     quit(save = "no", status = 5, runLast = FALSE)
