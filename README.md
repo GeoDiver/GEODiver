@@ -58,6 +58,9 @@ git clone https://github.com/GeoDiver/GEODiver
 # Move into GeoDiver source directory.
 cd GEODiver
 
+# Initialize git submodules
+git submodule update --init --remote 
+
 # Install R dependencies & Build and install the latest version of the webapp.
 rake install 
 

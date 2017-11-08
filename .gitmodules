@@ -1,0 +1,3 @@
+[submodule "RCore"]
+	path = RCore
+	url = https://github.com/GeoDiver/RCore
