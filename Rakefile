@@ -29,20 +29,12 @@ end
 task :assets do
   require_relative 'lib/geodiver/version'
   `rm ./public/assets/css/style-*.min.css`
-  `rm ./public/assets/css/home-*.min.css`
-  `rm ./public/assets/css/app-*.min.css`
+  `rm ./public/assets/css/style-*.min.css.map`
+  sh 'sass -t compressed ./public/assets/css/scss/materialize.scss' \
+     " ./public/assets/css/style-#{GeoDiver::VERSION}.min.css"
   `rm ./public/assets/js/geodiver-*.min.js`
-  sh 'cleancss --s0 -s --skip-rebase -o' \
-     " './public/assets/css/style-#{GeoDiver::VERSION}.min.css'" \
-     " './public/assets/css/style.css'"
-  sh 'cleancss --s0 -s --skip-rebase -o' \
-     " './public/assets/css/home-#{GeoDiver::VERSION}.min.css'" \
-     " './public/assets/css/home.css'"
-  sh 'cleancss --s0 -s --skip-rebase -o' \
-     " './public/assets/css/app-#{GeoDiver::VERSION}.min.css'" \
-     " './public/assets/css/app.css'"
-  sh "uglifyjs './public/assets/js/datatable-materialize.js'" \
-     " './public/assets/js/jquery.filedownload.min.js'" \
-     " './public/assets/js/geodiver.js' -m -c -o" \
+  sh "uglifyjs './public/assets/js/dependencies/datatable-materialize.js'" \
+     " './public/assets/js/dependencies/jquery.filedownload.min.js'" \
+     " './public/assets/js/geodiver.js' -m -c --source-map  -o" \
      " './public/assets/js/geodiver-#{GeoDiver::VERSION}.min.js'"
 end
