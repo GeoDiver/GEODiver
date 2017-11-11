@@ -1,0 +1,605 @@
+img.materialboxed.initialized.active {
+    background-color: #fff;
+}
+
+nav {
+    ul a,
+    .brand-logo {
+        color: #444;
+    }
+}
+
+p {
+    line-height: 2rem;
+}
+
+.app {
+    background-color: #e3e3e3;
+}
+
+.logo {
+    margin-left: 20px;
+}
+
+.nav_centered {
+    width: 300px !important;
+    margin: 0 auto;
+    background-color: transparent !important;
+    height: 64px;
+    li {
+        line-height: 64px !important;
+        height: 64px !important;
+    }
+}
+
+.nav_centered .indicator {
+    background-color: #fff;
+    height: 3.5px;
+}
+
+.analyse_card {
+    margin-top: 30px;
+}
+
+.card {
+    .card-action,
+    .card-content {
+        padding: 3rem 3.5rem;
+        .card-title {
+            font-size: 2rem;
+            padding-top: 20px;
+            padding-left: 10px;
+        }
+    }
+}
+
+.collapsible-body p {
+    padding: 0;
+}
+
+.adv_param_collapsible-body {
+    border-bottom-style: none;
+    padding: 1em 0px;
+}
+
+#search_geo {
+    padding-left: 20px;
+    padding-right: 50px;
+}
+
+.button-collapse {
+    color: #26a69a;
+}
+
+.parallax-container {
+    min-height: 380px;
+    line-height: 0;
+    height: auto;
+    color: rgba(255, 255, 255, 0.9);
+    .section {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .parallax-container .section {
+        position: absolute;
+        top: 40%;
+    }
+    #index-banner .section {
+        top: 10%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #index-banner .section {
+        top: 0;
+    }
+}
+
+.icon-block {
+    padding: 0 15px;
+    .material-icons {
+        font-size: inherit;
+    }
+}
+
+footer.page-footer {
+    margin: 0;
+}
+
+#search_geo_dataset {
+    margin-bottom: 25px;
+}
+
+.heading1 {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.heading2 {
+    font-size: 1.2rem;
+}
+
+.materialboxed_center {
+    margin: 0 auto;
+    width: 95%;
+}
+
+.adv_param_collapsible {
+    box-shadow: none;
+    border: none;
+    margin-top: 30px;
+    margin-bottom: -60px;
+}
+
+#adv_params_btn {
+    border-bottom: none;
+}
+
+#search_geo {
+    margin-bottom: 20px;
+}
+
+#results_section {
+    margin-top: 30px;
+}
+
+.dataset_info_title {
+    font-weight: 300;
+    font-size: 1.25rem;
+}
+
+.dataset_info_header {
+    font-weight: 500;
+}
+
+.multiple-select-dropdown,
+.select-dropdown {
+    overflow-y: scroll !important;
+    max-height: 300px !important;
+}
+
+.multiple-select-dropdown {
+    position: initial !important;
+}
+
+.dropdown-content {
+    background-color: #FFFFFF;
+    margin: 0;
+    display: none;
+    min-width: 170px;
+    /* Changed this to accomodate content width */
+    max-height: auto;
+    margin-left: -1px;
+    /* Add this to keep dropdown in line with edge of navbar */
+    overflow: hidden;
+    /* Changed this from overflow-y:auto; to overflow:hidden; */
+    opacity: 0;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 1;
+    will-change: width, height;
+}
+
+.collection .collection-item.avatar {
+    min-height: 62px;
+    .title {
+        line-height: 42px;
+        font-size: 17px;
+        padding: 0;
+    }
+}
+
+.profile_img {
+    height: 45px;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+#search_geo_dataset label {
+    width: 100%;
+    font-size: 0.8rem;
+}
+
+.navbar_centered {
+    left: 50%;
+    transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    /* IE 9 */
+    -webkit-transform: translateX(-50%);
+    /* Chrome, Safari, Opera */
+    position: absolute;
+    top: 0px !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    li {
+        &.active,
+        &:hover {
+            -webkit-box-shadow: inset 0px -3px 0px 0px #fff;
+            -moz-box-shadow: inset 0px -3px 0px 0px #fff;
+            box-shadow: inset 0px -3px 0px 0px #fff;
+        }
+        a {
+            min-width: 150px;
+            text-align: center;
+        }
+    }
+}
+
+.material-table {
+    padding: 0;
+    .hiddensearch {
+        padding: 0 14px 0 24px;
+        border-bottom: solid 1px #DDDDDD;
+        display: none;
+        input {
+            margin: 0;
+            border: transparent 0 !important;
+            height: 48px;
+            color: rgba(0, 0, 0, 0.84);
+            &:active {
+                border: transparent 0 !important;
+            }
+        }
+    }
+    table {
+        overflow: scroll;
+    }
+    .table-header {
+        height: 64px;
+        padding-left: 24px;
+        padding-right: 14px;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: flex;
+        -webkit-display: flex;
+        border-bottom: solid 1px #DDDDDD;
+        .actions {
+            display: -webkit-flex;
+            margin-left: auto;
+        }
+        .btn-flat {
+            min-width: 36px;
+            padding: 0 8px;
+        }
+        input {
+            margin: 0;
+            height: auto;
+        }
+        i {
+            color: rgba(0, 0, 0, 0.54);
+            font-size: 24px;
+        }
+    }
+    .table-footer {
+        height: 56px;
+        padding-left: 24px;
+        padding-right: 14px;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        -webkit-justify-content: flex-end;
+        justify-content: flex-end;
+        -webkit-align-items: center;
+        align-items: center;
+        font-size: 12px !important;
+        color: rgba(0, 0, 0, 0.54);
+        .dataTables_length {
+            display: -webkit-flex;
+            display: flex;
+        }
+        label {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.54);
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: row;
+            /* works with row or column */
+            flex-direction: row;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+        .select-wrapper {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-direction: row;
+            /* works with row or column */
+            flex-direction: row;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+        }
+        .dataTables_info,
+        .dataTables_length {
+            margin-right: 32px;
+        }
+        .material-pagination {
+            display: flex;
+            -webkit-display: flex;
+            margin: 0;
+            li {
+                &:first-child {
+                    margin-right: 24px;
+                }
+                a {
+                    color: rgba(0, 0, 0, 0.54);
+                }
+            }
+        }
+        .select-wrapper input.select-dropdown {
+            margin: 0;
+            border-bottom: none;
+            height: auto;
+            line-height: normal;
+            font-size: 12px;
+            width: 40px;
+            text-align: right;
+        }
+        select {
+            background-color: transparent;
+            width: auto;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            height: auto;
+            margin-left: 20px;
+        }
+    }
+    table {
+        tr {
+            td {
+                height: 48px;
+                font-size: 13px;
+                color: rgba(0, 0, 0, 0.87);
+                border-bottom: solid 1px #DDDDDD;
+                white-space: nowrap;
+                a {
+                    color: inherit;
+                    i {
+                        font-size: 18px;
+                        color: rgba(0, 0, 0, 0.54);
+                    }
+                }
+            }
+            font-size: 12px;
+        }
+        th {
+            font-size: 12px;
+            font-weight: 500;
+            color: #757575;
+            cursor: pointer;
+            white-space: nowrap;
+            padding: 0;
+            height: 56px;
+            vertical-align: middle;
+            outline: none !important;
+            &.sorting_asc,
+            &.sorting_desc {
+                color: rgba(0, 0, 0, 0.87);
+            }
+            &.sorting:after,
+            &.sorting_asc:after,
+            &.sorting_desc:after {
+                font-family: 'Material Icons';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 16px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                word-wrap: normal;
+                -webkit-font-feature-settings: 'liga';
+                -webkit-font-smoothing: antialiased;
+                content: "arrow_back";
+                -webkit-transform: rotate(90deg);
+                display: none;
+                vertical-align: middle;
+            }
+            &.sorting:hover:after,
+            &.sorting_asc:after {
+                display: inline-block;
+            }
+            &.sorting_desc:after {
+                display: inline-block;
+                content: "arrow_forward";
+            }
+        }
+        tbody tr:hover {
+            background-color: #EEE;
+        }
+        th:first-child,
+        td:first-child {
+            padding: 0 0 0 24px;
+            text-align: left;
+            font-weight: bold;
+            min-width: 100px;
+        }
+    }
+}
+
+#gsea-top-table-wrapper table {
+    th:nth-child(2),
+    td:nth-child(2) {
+        padding: 0 0 0 24px;
+        text-align: left;
+        font-weight: bold;
+    }
+    tr td {
+        white-space: normal;
+    }
+    th:nth-child(8) {
+        max-width: 56px;
+    }
+}
+
+#dgea-top-table-wrapper table th:nth-child(8) {
+    max-width: 56px;
+}
+
+#gsea-top-table-wrapper table th {
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5),
+    &:nth-child(6),
+    &:nth-child(7) {
+        min-width: 100px !important;
+    }
+}
+
+#dgea-top-table-wrapper table th {
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4),
+    &:nth-child(5),
+    &:nth-child(6),
+    &:nth-child(7) {
+        min-width: 80px !important;
+    }
+}
+
+.child {
+    font-weight: normal !important;
+    &:hover {
+        background-color: transparent !important;
+    }
+}
+
+div.material-table {
+    table {
+        th:last-child,
+        td:last-child {
+            padding: 0 14px 0 0;
+            text-align: right;
+        }
+    }
+    td {
+        text-align: center;
+    }
+}
+
+th {
+    text-align: center;
+}
+
+.child-row-chart {
+    cursor: pointer;
+}
+
+input[type=range]+.thumb .value {
+    margin-top: 0 !important;
+}
+
+#dgea_heatmap_params,
+#gsea_heatmap_params,
+#DGEAparams,
+#dgea_toptable_params {
+    padding-left: 3rem;
+    padding-top: 3rem;
+}
+
+#GSEAparams,
+#gage_select_control {
+    padding-left: 3rem;
+}
+
+.parallax img {
+    opacity: 0.8;
+}
+
+.main_front_page_header {
+    font-weight: 500;
+    color: rgba(254, 254, 254, 0.93);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.parrallax_writing {
+    font-weight: 500;
+    color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.modebar-btn {
+    margin-right: 0;
+}
+
+.adv_param_collapsible {
+    margin-bottom: 1rem;
+}
+
+#analyse_geo_btn {
+    width: 100%;
+    float: none;
+    margin-bottom: 1rem;
+}
+
+#adv_params_btn,
+.load_geo_db_btn {
+    float: none;
+    width: 100%;
+}
+
+.card .card-title {
+    font-size: 1.7rem;
+    font-weight: 400;
+}
+
+.tabs .tab a {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+@media (min-width: 600px) {
+    .adv_param_collapsible {
+        margin-bottom: -60px;
+    }
+    #adv_params_btn {
+        float: left;
+        width: initial;
+    }
+    #analyse_geo_btn,
+    .load_geo_db_btn {
+        float: right;
+        width: initial;
+    }
+}
+
+
+/* temp fix to align the checkbox */
+
+.input-field {
+    &.col .dropdown-content [type="checkbox"]+label {
+        top: 0 !important;
+        /* previously 1px; */
+        display: inline !important;
+        /* previously inherits `display: inline-block;` from `[type="checkbox"]+label` */
+    }
+    [type="checkbox"]+label {
+        pointer-events: auto;
+    }
+    [type="radio"] {
+        &:not(:checked)+label,
+        &:checked+label {
+            pointer-events: auto;
+        }
+    }
+}
+
+
+/* temp fix to radio buttons clickable*/
+
+.parallax-container .parallax img {
+    filter: brightness(80%);
+    -webkit-filter: brightness(80%);
+}
+
+.page-footer ul li a:hover {
+    color: #ffffff;
+}
