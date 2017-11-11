@@ -84,10 +84,17 @@
         .card-action
           span#overview.card-title.light-blue-text.text-darken-3 style=("padding-left:0;")
             |  Overview (PCA, HCA, Boxplots)
-          p.red-text.text-lighten-2 style="font-size:1.5rem;"
-            | <strong>Apologies, there was an error in running the Overview Script. Please try again.</strong>
+          p.red-text.text-lighten-2 style="font-size: 1.5rem"
+            strong Apologies, there was an error in running the Overview Script. Please try again
+            .
           p.red-text.text-lighten-2  Error Message: The Overview Script failed to run sucessfully (exit code: #{@results['overview_exit_code']})
-          p.red-text.text-lighten-2  If the error persists, please contact the administrator.
+          p.red-text.text-lighten-2
+            | If the error persists, please contact us via  
+            a.red-text.text-lighten-1 href="mailto:mail.geodiver@gmail.com?Subject=GeoDiver%20Issue" target="_top" email  
+            | or create an issue on github  
+            a.red-text.text-lighten-1 href="https://github.com/geodiver/geodiver/issues/"
+              | https://github.com/geodiver/geodiver/issues/
+            .
       .card-action
         span.card-title.light-blue-text.text-darken-3 style=("padding-left:0;")  Results
         .row
@@ -138,10 +145,17 @@
                 /! Plotly chart will be drawn inside this DIV
           - else
             #DGEA.col.s12
-              p.red-text.text-lighten-2 style="font-size:1.5rem;"
-                | <strong>Apologies, there was an error in running the DGEA Script. Please try again.</strong>
+              p.red-text.text-lighten-2 style="font-size: 1.5rem"
+                strong Apologies, there was an error in running the DGEA Script. Please try again
+                .
               p.red-text.text-lighten-2  Error Message: The DGEA Script failed to run sucessfully (exit code: #{@results['dgea_exit_code']})
-              p.red-text.text-lighten-2  If the error persists, please contact the administrator.
+              p.red-text.text-lighten-2
+                | If the error persists, please contact us via  
+                a.red-text.text-lighten-1 href="mailto:mail.geodiver@gmail.com?Subject=GeoDiver%20Issue" target="_top" email  
+                | or create an issue on github  
+                a.red-text.text-lighten-1 href="https://github.com/geodiver/geodiver/issues/"
+                  | https://github.com/geodiver/geodiver/issues/
+                .
           - if @results['gage_exit_code'].to_i == 0
             #GSEA.col.s12 data-gsea-json="#{@results['assets_path']}/gage_data.json"
               p.section
@@ -172,7 +186,14 @@
                           th
           - else
             #GSEA.col.s12
-              p.red-text.text-lighten-2 style="font-size:1.5rem;"
-                | <strong>Apologies, there was an error in running the GAGE Script. Please try again.</strong>
+              p.red-text.text-lighten-2 style="font-size: 1.5rem"
+                strong Apologies, there was an error in running the GAGE Script. Please try again
+                .
               p.red-text.text-lighten-2  Error Message: The GAGE Script failed to run sucessfully (exit code: #{@results['gage_exit_code']})
-              p.red-text.text-lighten-2  If the error persists, please contact the administrator.
+              p.red-text.text-lighten-2
+                | If the error persists, please contact us via  
+                a.red-text.text-lighten-1 href="mailto:mail.geodiver@gmail.com?Subject=GeoDiver%20Issue" target="_top" email  
+                | or create an issue on github  
+                a.red-text.text-lighten-1 href="https://github.com/geodiver/geodiver/issues/"
+                  | https://github.com/geodiver/geodiver/issues/
+                .
