@@ -5,27 +5,38 @@
 
 ## Introduction
 
-GeoDiver is a web app that allows users to easily analyse GEO datasets.
+GeoDiver is a web app that allows users to easily analyse GEO datasets. This web application is available at [https://geodiver.co.uk](https://geodiver.co.uk).
+
+Pull Requests are welcome - whether you would like to fix a bug or implement a cool new feature, feel free to get in contact and we would be happy to work with you.
+
+Please cite us if you use GeoDiver:
+> Moghul et al. (in prep) GeoDiver: Differential Gene Expression Analysis & Gene-Set Analysis For GEO Datasets [https://doi.org/10.1101/127753](https://doi.org/10.1101/127753)
+
+You can read the latest version of the paper [here](https://doi.org/10.1101/127753).
 
 ## Installation
 
-Feel free to give us a shout on the github issues, if you would like more help than that below.
+The installation instructions below are for if you wish to install a local copy of the web application. If you simply want to use GeoDiver, please use [https://geodiver.co.uk](https://geodiver.co.uk).
+
+> If you would like more help than that below, please feel free to give us a shout on [github issues](https://github.com/GeoDiver/GeoDiver/issues).
 
 ### Installation Requirements
 
 * Ruby (>= 2.2.0)
   * Recommended to use [rvm](https://rvm.io/rvm/install) to install ruby
-* R (=3.3.2)
-  * https://cran.r-project.org
+* R (>=3.3.2)
+  * [https://cran.r-project.org](https://cran.r-project.org)
 * NodeJs (>= 7.7)
 * bionode-ncbi (>= 2.0)
 * jq (>= 1.5)
+
+> This installation has only been tested on a unix system. If you are looking to install on Windows and the below do not work, please use the docker container.
 
 ### Google API Setup
 
 In order to use the Google Login System (recommended), you need register with Google API to recieve a key and secret key (don't forget to keep your secret key a secret!)
 
-1. Go to 'https://console.developers.google.com'
+1. Go to '[https://console.developers.google.com](https://console.developers.google.com)'
 1. Select your project or create a new one (in the top left hand corner).
 1. Click on the menu button on the top left, and click on 'API Manager'.
 1. Click on 'Library' in the left side bar.
@@ -38,8 +49,8 @@ In order to use the Google Login System (recommended), you need register with Go
 1. Next select the 'Credentials' tab on top and click on 'Create Credentials' and then 'OAuth Client ID'.
 1. Under Application type, select 'Web Application'
 1. Select a name for your application (e.g. GeoDiver)
-1. Under Authorised Javscript origins, add 'http://localhost:9292' (and other domain name you wish to use, including with and without 'www')
-1. Next, under Authorised redirect URIs add 'http://localhost:9292/auth/google_oauth2/callback'.
+1. Under Authorised Javscript origins, add '[http://localhost:9292](http://localhost:9292)' (and other domain name you wish to use, including with and without 'www')
+1. Next, under Authorised redirect URIs add '[http://localhost:9292/auth/google_oauth2/callback](http://localhost:9292/auth/google_oauth2/callback)'.
 1. Copy Client ID and Client Secret.
 
 ### GeoDiver Installation
@@ -95,7 +106,7 @@ To configure and launch Geodiver, run the following from a command line from the
 bundle exec passenger start -h
 ```
 
-That's it! Open http://localhost:9292/ and start using GeoDiver!
+That's it! Open [http://localhost:9292/](http://localhost:9292/) and start using GeoDiver!
 
 ## Advanced Usage
 
