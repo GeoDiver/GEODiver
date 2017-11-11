@@ -1,0 +1,579 @@
+/* Share_Results over the fold css */
+
+ul,
+ul li {
+    list-style-type: none
+}
+
+.row .col,
+html {
+    box-sizing: border-box
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+html {
+    font-weight: 400
+}
+
+@font-face {
+    font-family: Roboto;
+    src: local(Roboto Thin), url(assets/font/roboto/Roboto-Thin.eot);
+    src: url(assets/font/roboto/Roboto-Thin.eot?#iefix) format("embedded-opentype"), url(assets/font/roboto/Roboto-Thin.woff2) format("woff2"), url(assets/font/roboto/Roboto-Thin.woff) format("woff"), url(assets/font/roboto/Roboto-Thin.ttf) format("truetype");
+    font-weight: 200
+}
+
+@font-face {
+    font-family: Roboto;
+    src: local(Roboto Light), url(assets/font/roboto/Roboto-Light.eot);
+    src: url(assets/font/roboto/Roboto-Light.eot?#iefix) format("embedded-opentype"), url(assets/font/roboto/Roboto-Light.woff2) format("woff2"), url(assets/font/roboto/Roboto-Light.woff) format("woff"), url(assets/font/roboto/Roboto-Light.ttf) format("truetype");
+    font-weight: 300
+}
+
+@font-face {
+    font-family: Roboto;
+    src: local(Roboto Regular), url(assets/font/roboto/Roboto-Regular.eot);
+    src: url(assets/font/roboto/Roboto-Regular.eot?#iefix) format("embedded-opentype"), url(assets/font/roboto/Roboto-Regular.woff2) format("woff2"), url(assets/font/roboto/Roboto-Regular.woff) format("woff"), url(assets/font/roboto/Roboto-Regular.ttf) format("truetype");
+    font-weight: 400
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url(assets/font/roboto/Roboto-Medium.eot);
+    src: url(assets/font/roboto/Roboto-Medium.eot?#iefix) format("embedded-opentype"), url(assets/font/roboto/Roboto-Medium.woff2) format("woff2"), url(assets/font/roboto/Roboto-Medium.woff) format("woff"), url(assets/font/roboto/Roboto-Medium.ttf) format("truetype");
+    font-weight: 500
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url(assets/font/roboto/Roboto-Bold.eot);
+    src: url(assets/font/roboto/Roboto-Bold.eot?#iefix) format("embedded-opentype"), url(assets/font/roboto/Roboto-Bold.woff2) format("woff2"), url(assets/font/roboto/Roboto-Bold.woff) format("woff"), url(assets/font/roboto/Roboto-Bold.ttf) format("truetype");
+    font-weight: 700
+}
+
+@font-face {
+    font-family: Material-Design-Icons;
+    src: url(assets/font/material-design-icons/Material-Design-Icons.eot?#iefix) format("embedded-opentype"), url(assets/font/material-design-icons/Material-Design-Icons.woff2) format("woff2"), url(assets/font/material-design-icons/Material-Design-Icons.woff) format("woff"), url(assets/font/material-design-icons/Material-Design-Icons.ttf) format("truetype"), url(assets/font/material-design-icons/Material-Design-Icons.svg#Material-Design-Icons) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+
+.valign-wrapper {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.left-align {
+    text-align: left
+}
+
+.btn-large,
+.center {
+    text-align: center
+}
+
+[class*=mdi-],
+[class^=mdi-] {
+    speak: none;
+    display: inline-block;
+    font-family: Material-Design-Icons;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0)
+}
+
+[class*=mdi-]:before,
+[class^=mdi-]:before {
+    display: inline-block;
+    speak: none;
+    text-decoration: inherit
+}
+
+.btn-large,
+a {
+    text-decoration: none
+}
+
+.mdi-content-send:before {
+    content: "\e71c"
+}
+
+@media only screen and (min-width:993px) {
+    .container {
+        width: 70%
+    }
+    nav a.button-collapse {
+        display: none
+    }
+}
+
+@media only screen and (min-width:992px) {
+    html {
+        font-size: 14.5px
+    }
+}
+
+@media only screen and (min-width:1200px) {
+    html {
+        font-size: 15px
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    line-height: 1.1
+}
+
+h3,
+h4 {
+    line-height: 110%
+}
+
+h3 {
+    font-size: 2.92rem;
+    margin: 1.46rem 0 1.168rem
+}
+
+h4 {
+    font-size: 2.28rem;
+    margin: 1.14rem 0 .912rem
+}
+
+p {
+    line-height: 2rem
+}
+
+.teal.lighten-1 {
+    background-color: #26a69a!important
+}
+
+.teal {
+    background-color: #009688!important
+}
+
+.brown-text {
+    color: #795548!important
+}
+
+.white {
+    background-color: #fff!important
+}
+
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%
+}
+
+body {
+    margin: 0
+}
+
+nav {
+    display: block
+}
+
+a {
+    background-color: transparent;
+    color: #039be5
+}
+
+nav,
+nav a {
+    color: #fff
+}
+
+img {
+    border: 0
+}
+
+*,
+:after,
+:before {
+    box-sizing: inherit
+}
+
+ul {
+    padding: 0
+}
+
+.btn-large,
+.side-nav,
+nav {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12)
+}
+
+i {
+    line-height: inherit
+}
+
+i.right {
+    float: right;
+    margin-left: 15px
+}
+
+.parallax-container {
+    position: relative;
+    overflow: hidden
+}
+
+.parallax,
+.parallax img {
+    position: absolute;
+    bottom: 0
+}
+
+.parallax {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1
+}
+
+.parallax img {
+    display: none;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    opacity: .8
+}
+
+@media only screen and (max-width:992px) {
+    .hide-on-med-and-down {
+        display: none!important
+    }
+}
+
+.right {
+    float: right!important
+}
+
+.material-icons {
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'liga';
+    -moz-font-feature-settings: 'liga';
+    font-feature-settings: 'liga'
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 90%
+}
+
+@media only screen and (min-width:601px) {
+    .container {
+        width: 85%
+    }
+}
+
+.container .row {
+    margin-left: -.75rem;
+    margin-right: -.75rem
+}
+
+.section {
+    padding-top: 1rem;
+    padding-bottom: 1rem
+}
+
+.section.no-pad-bot {
+    padding-bottom: 0
+}
+
+.row {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both
+}
+
+.row .col {
+    float: left;
+    padding: 0 .75rem
+}
+
+.row .col.s12 {
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+    right: auto
+}
+
+@media only screen and (min-width:601px) {
+    .row .col.m4 {
+        width: 33.3333333333%;
+        margin-left: auto;
+        left: auto;
+        right: auto
+    }
+}
+
+nav {
+    background-color: #ee6e73;
+    width: 100%;
+    height: 56px;
+    line-height: 56px
+}
+
+nav i,
+nav i.material-icons {
+    display: block;
+    font-size: 2rem;
+    height: 56px;
+    line-height: 56px
+}
+
+nav .nav-wrapper {
+    position: relative;
+    height: 100%
+}
+
+nav .button-collapse {
+    float: left;
+    position: relative;
+    z-index: 1;
+    height: 56px
+}
+
+nav .button-collapse i {
+    font-size: 2.7rem;
+    height: 56px;
+    line-height: 56px
+}
+
+nav .brand-logo {
+    position: absolute;
+    display: inline-block;
+    font-size: 2.1rem;
+    padding: 0;
+    white-space: nowrap
+}
+
+@media only screen and (max-width:992px) {
+    nav .brand-logo {
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%)
+    }
+}
+
+nav ul {
+    margin: 0
+}
+
+nav ul li {
+    float: left;
+    padding: 0
+}
+
+nav ul a {
+    font-size: 1rem;
+    display: block;
+    padding: 0 15px
+}
+
+.btn-large,
+.waves-effect {
+    display: inline-block;
+    vertical-align: middle
+}
+
+@media only screen and (min-width:601px) {
+    nav,
+    nav .nav-wrapper i,
+    nav a.button-collapse,
+    nav a.button-collapse i {
+        height: 64px;
+        line-height: 64px
+    }
+}
+
+h1,
+h2,
+h5 {
+    line-height: 110%
+}
+
+html {
+    line-height: 1.5;
+    font-family: Roboto, sans-serif;
+    color: rgba(0, 0, 0, .87)
+}
+
+@media only screen and (min-width:0) {
+    html {
+        font-size: 14px
+    }
+}
+
+h1 {
+    font-size: 4.2rem;
+    margin: 2.1rem 0 1.68rem
+}
+
+h2 {
+    font-size: 3.56rem;
+    margin: 1.78rem 0 1.424rem
+}
+
+h5 {
+    font-size: 1.64rem;
+    margin: .82rem 0 .656rem
+}
+
+.light {
+    font-weight: 300
+}
+
+.main_front_page_header,
+.parrallax_writing {
+    font-weight: 500;
+    text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000
+}
+
+.btn-large {
+    border: none;
+    border-radius: 2px;
+    outline: 0;
+    padding: 0 2rem;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #26a69a;
+    letter-spacing: .5px;
+    height: 54px;
+    line-height: 56px
+}
+
+.waves-effect {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    will-change: opacity, transform
+}
+
+::-webkit-input-placeholder {
+    color: #d1d1d1
+}
+
+:-moz-placeholder {
+    color: #d1d1d1
+}
+
+::-moz-placeholder {
+    color: #d1d1d1
+}
+
+:-ms-input-placeholder {
+    color: #d1d1d1
+}
+
+.side-nav {
+    position: fixed;
+    width: 240px;
+    left: -105%;
+    top: 0;
+    margin: 0;
+    height: 100%;
+    height: calc(100% + 60px);
+    height: -moz-calc(100%);
+    padding-bottom: 60px;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: auto;
+    will-change: left
+}
+
+.icon-block,
+.side-nav a,
+.side-nav li {
+    padding: 0 15px
+}
+
+.side-nav li {
+    float: none;
+    line-height: 64px
+}
+
+.side-nav a {
+    color: #444;
+    display: block;
+    font-size: 1rem;
+    height: 64px;
+    line-height: 64px
+}
+
+nav .brand-logo,
+nav ul a {
+    color: #444
+}
+
+.button-collapse {
+    color: #26a69a
+}
+
+.parallax-container {
+    min-height: 380px;
+    line-height: 0;
+    height: auto;
+    color: rgba(255, 255, 255, .9)
+}
+
+.parallax-container .section {
+    width: 100%
+}
+
+@media only screen and (max-width:992px) {
+    .parallax-container .section {
+        position: absolute;
+        top: 40%
+    }
+    #index-banner .section {
+        top: 10%
+    }
+}
+
+@media only screen and (max-width:600px) {
+    #index-banner .section {
+        top: 0
+    }
+}
+
+.icon-block .material-icons {
+    font-size: inherit
+}
+
+.logo {
+    margin-left: 20px
+}
+
+.main_front_page_header {
+    xolor: rgba(254, 254, 254, .93)
+}
+
+.parrallax_writing {
+    color: #fff
+}
