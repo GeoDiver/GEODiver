@@ -4,6 +4,7 @@ require 'omniauth'
 require 'omniauth-google-oauth2'
 require 'sinatra/base'
 require 'slim'
+require 'slim/smart'
 
 require 'geodiver/load_geo_db'
 require 'geodiver/geo_analysis'
@@ -59,9 +60,9 @@ module GeoDiver
       # Takes Rack routers and reverse proxies into account.
       def uri(addr = nil, absolute = true, add_script_name = true)
         return addr if addr =~ /\A[a-z][a-z0-9\+\.\-]*:/i
-        uri = [host = String.new]
+        uri = [host = '']
         if absolute
-          host << (GeoDiver.ssl? ? "https://" : "http://")
+          host << (GeoDiver.ssl? ? 'https://' : 'http://')
           if request.forwarded? or request.port != (request.secure? ? 443 : 80)
             host << request.host_with_port
           else
@@ -224,6 +225,10 @@ module GeoDiver
     get '/auth/failure' do
       redirect '/analyse'
     end
+
+    # Recaptcha
+    # https://stackoverflow.com/questions/21262254/what-captcha-for-sinatra
+    #
 
     # This error block will only ever be hit if the user gives us a funny
     # sequence or incorrect advanced parameter. Well, we could hit this block
