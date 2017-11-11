@@ -701,14 +701,16 @@ if (!GD) {
     GD.ensureOnlyOneSelectOption = function() {
         $('.select_factors:visible select[name="groupa[]"], .select_factors:visible select[name="groupb[]"]').on('change', function() {
             // RESET both arrays
-            $('.select_factors:visible select[name="groupa[]"]').siblings('ul').children('li').not(':first-child').prop('disabled', false);
-            $('.select_factors:visible select[name="groupa[]"]').siblings('ul').children('li').not(':first-child').removeClass('disabled');
-            $('.select_factors:visible select[name="groupa[]"]').siblings('ul').children('li').not(':first-child').find('input:checkbox').prop('disabled', false);
+            $groupAChildren = $('.select_factors:visible select[name="groupa[]"]').siblings('ul').children('li').not(':first-child');
+            $groupAChildren.prop("disabled", false);
+            $groupAChildren.removeClass('disabled');
+            $groupAChildren.find('input:checkbox').prop('disabled', false);
             $('.select_factors:visible select[name="groupa[]"]').children().not(':first-child').prop('disabled', false);
 
-            $('.select_factors:visible select[name="groupb[]"]').siblings('ul').children('li').not(':first-child').prop('disabled', false);
-            $('.select_factors:visible select[name="groupb[]"]').siblings('ul').children('li').not(':first-child').removeClass('disabled');
-            $('.select_factors:visible select[name="groupb[]"]').siblings('ul').children('li').not(':first-child').find('input:checkbox').prop('disabled', false);
+            $groupBChildren = $('.select_factors:visible select[name="groupb[]"]').siblings("ul").children("li").not(":first-child");
+            $groupBChildren.prop("disabled", false);
+            $groupBChildren.removeClass('disabled');
+            $groupBChildren.find('input:checkbox').prop('disabled', false);
             $('.select_factors:visible select[name="groupb[]"]').children().not(':first-child').prop('disabled', false);
 
             var aValues = $('.select_factors:visible select[name="groupa[]"]').val();
@@ -796,7 +798,7 @@ if (!GD) {
             img.src = this.src;
         });
         // return a master promise object which will resolve when all the deferred objects have resolved
-        // IE - when all the images are loaded
+        // i.e. - when all the images are loaded
         return $.when.apply($, dfds);
     };
 
