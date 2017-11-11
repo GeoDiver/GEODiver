@@ -29,8 +29,8 @@ BANNER
        'Use the given configuration file',
        argument: true
 
-    on 'g', 'gd_public_dir=',
-       'The public directory that is served to the web application.',
+    on 'g', 'gd_serve_dir=',
+       'The directory from where the web application is served from.',
        argument: true
 
     on 'n', 'num_threads=',

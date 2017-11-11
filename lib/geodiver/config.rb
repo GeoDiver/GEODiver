@@ -74,7 +74,7 @@ module GeoDiver
         num_threads: 1,
         port: 9292,
         host: '0.0.0.0',
-        gd_public_dir: File.join(Dir.home, '.geodiver/'),
+        gd_serve_dir: File.join(Dir.home, '.geodiver/'),
         ssl: false
       }
     end

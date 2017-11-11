@@ -32,18 +32,19 @@ module GeoDiver
     end
 
     # Setting up the environment before running the app...
+    # We don't validate port and host settings. If GeoDiver is run
+    # self-hosted, bind will fail on incorrect values. If GeoDiver
+    # is run via Apache/Nginx + Passenger, we don't need to worry.
     def init(config = {})
       @config = Config.new(config)
+      Thread.abort_on_exception = true if verbose?
+
 
       init_dirs
       set_up_default_user_dir
       check_num_threads
 
       self
-
-      # We don't validate port and host settings. If GeoDiver is run
-      # self-hosted, bind will fail on incorrect values. If GeoDiver
-      # is run via Apache/Nginx + Passenger, we don't need to worry.
     end
 
     attr_reader :config, :temp_dir, :public_dir, :users_dir, :db_dir
@@ -74,6 +75,7 @@ module GeoDiver
     def on_stop
       puts
       puts '** Thank you for using GeoDiver :).'
+      # Add Citation Notice Here
     end
 
     # Rack-interface.
@@ -86,32 +88,43 @@ module GeoDiver
 
     private
 
-    # Set up the directory structure in @config[:gd_public_dir]
+    # Set up the directory structure in @config[:gd_serve_dir]
     def init_dirs
-      config[:gd_public_dir] = File.expand_path config[:gd_public_dir]
-      logger.debug "GeoDiver Directory: #{config[:gd_public_dir]}"
-      @public_dir = create_public_dir
-      @users_dir  = File.expand_path('../Users', @public_dir)
+      default_dirs
+      init_public_dir
       FileUtils.mkdir_p @users_dir unless Dir.exist? @users_dir
-      @db_dir = File.expand_path('../DBs', @public_dir)
       FileUtils.mkdir_p @db_dir unless Dir.exist? @db_dir
     end
 
-    # Create the public dir, if already created and the right CSS/JS version do
-    # not exist then remove the existing assets and copy over the new assets
-    def create_public_dir
-      public_dir = File.join(config[:gd_public_dir], 'public')
-      if Dir.exist?(public_dir) &&
-         !File.exist?(File.join(public_dir, 'assets/css',
-                                "style-#{GeoDiver::VERSION}.min.css"))
-        FileUtils.rm_r File.join(public_dir, 'assets')
+    def default_dirs
+      config[:gd_serve_dir] = File.expand_path config[:gd_serve_dir]
+      @public_dir = File.join(config[:gd_serve_dir], 'public')
+      @users_dir = File.join(config[:gd_serve_dir], 'Users')
+      @db_dir = File.join(config[:gd_serve_dir], 'DBs')
+      logger.debug "GeoDiver Directory: #{config[:gd_serve_dir]}"
+      logger.debug "@public_dir Directory: #{@public_dir}"
+      logger.debug "@users_dir Directory: #{@users_dir}"
+      logger.debug "@db_dir Directory: #{@db_dir}"
+    end
+
+    # Public Directory structure
+    def init_public_dir
+      FileUtils.mkdir_p @public_dir unless Dir.exist?(@public_dir)
+      root_assets = File.join(GeoDiver.root, 'public/assets')
+      FileUtils.rm_rf(File.join(@public_dir, 'assets'))
+      if environment == 'development'
+        FileUtils.ln_s(root_assets, @public_dir)
       else
-        FileUtils.mkdir_p public_dir
-        FileUtils.cp_r(File.join(GeoDiver.root, 'public/GeoDiver'), public_dir)
+        FileUtils.cp_r(root_assets, @public_dir)
       end
-      FileUtils.cp_r(File.join(GeoDiver.root, 'public/assets'), public_dir)
-      logger.debug "Public Directory: #{public_dir}"
-      public_dir
+      init_public_gd_dir(@public_dir)
+    end
+
+    def init_public_gd_dir(public_dir)
+      root_gd = File.join(GeoDiver.root, 'public/GeoDiver')
+      public_gd = File.join(public_dir, 'GeoDiver')
+      return if File.exist?(public_gd)
+      FileUtils.cp_r(root_gd, public_dir)
     end
 
     def set_up_default_user_dir
