@@ -804,6 +804,7 @@ if (!GD) {
         $('.button-collapse').sideNav();
         $('select').material_select();
         $('#login_modal').modal();
+        $('.modal').modal();
         if ($('#load_geo_db').length) {
             GD.setUpValidatorDefaults();
             GD.loadGeoDbValidation();

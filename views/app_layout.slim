@@ -50,7 +50,7 @@ html lang="en"
             a.white-text href="#{request.base_url}/analyse"  Analyse    
           li class=('active' if uri =~ %r{/my_results} )
             - if session[:user].nil?
-              a.white-text href="#login_modal"  My Results
+              a.white-text.modal-trigger href="#login_modal"  My Results
             - else
               a.white-text href="#{request.base_url}/my_results"  My Results
         ul.right.hide-on-med-and-down style="position:absolute;top:0 !important;right:0;"
