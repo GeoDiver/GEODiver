@@ -2,13 +2,6 @@ img.materialboxed.initialized.active {
     background-color: #fff;
 }
 
-nav {
-    ul a,
-    .brand-logo {
-        color: #444;
-    }
-}
-
 p {
     line-height: 2rem;
 }
@@ -21,6 +14,51 @@ p {
     margin-left: 20px;
 }
 
+.main_front_page_header {
+    font-weight: 500;
+    color: rgba(254, 254, 254, 0.93);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.parrallax_writing {
+    font-weight: 500;
+    color: #fff;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+nav {
+    ul a,
+    .brand-logo {
+        color: #444;
+    }
+}
+
+.navbar_centered {
+    left: 50%;
+    transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    /* IE 9 */
+    -webkit-transform: translateX(-50%);
+    /* Chrome, Safari, Opera */
+    position: absolute;
+    top: 0px !important;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    li {
+        &.active,
+        &:hover {
+            -webkit-box-shadow: inset 0px -3px 0px 0px #fff;
+            -moz-box-shadow: inset 0px -3px 0px 0px #fff;
+            box-shadow: inset 0px -3px 0px 0px #fff;
+        }
+        a {
+            min-width: 150px;
+            text-align: center;
+        }
+    }
+}
+
 .nav_centered {
     width: 300px !important;
     margin: 0 auto;
@@ -30,11 +68,10 @@ p {
         line-height: 64px !important;
         height: 64px !important;
     }
-}
-
-.nav_centered .indicator {
-    background-color: #fff;
-    height: 3.5px;
+    .indicator {
+        background-color: #fff;
+        height: 3.5px;
+    }
 }
 
 .analyse_card {
@@ -57,6 +94,13 @@ p {
     padding: 0;
 }
 
+.adv_param_collapsible {
+    box-shadow: none;
+    border: none;
+    margin-top: 30px; // margin-bottom: -60px;
+    margin-bottom: 1rem;
+}
+
 .adv_param_collapsible-body {
     border-bottom-style: none;
     padding: 1em 0px;
@@ -65,6 +109,15 @@ p {
 #search_geo {
     padding-left: 20px;
     padding-right: 50px;
+    margin-bottom: 20px;
+}
+
+#search_geo_dataset {
+    margin-bottom: 25px;
+    label {
+        width: 100%;
+        font-size: 0.8rem;
+    }
 }
 
 .button-collapse {
@@ -106,10 +159,9 @@ p {
 
 footer.page-footer {
     margin: 0;
-}
-
-#search_geo_dataset {
-    margin-bottom: 25px;
+    ul li a:hover {
+        color: #ffffff;
+    }
 }
 
 .heading1 {
@@ -124,21 +176,6 @@ footer.page-footer {
 .materialboxed_center {
     margin: 0 auto;
     width: 95%;
-}
-
-.adv_param_collapsible {
-    box-shadow: none;
-    border: none;
-    margin-top: 30px;
-    margin-bottom: -60px;
-}
-
-#adv_params_btn {
-    border-bottom: none;
-}
-
-#search_geo {
-    margin-bottom: 20px;
 }
 
 #results_section {
@@ -197,34 +234,9 @@ footer.page-footer {
     margin-bottom: 10px !important;
 }
 
-#search_geo_dataset label {
-    width: 100%;
-    font-size: 0.8rem;
-}
-
-.navbar_centered {
-    left: 50%;
-    transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    /* IE 9 */
-    -webkit-transform: translateX(-50%);
-    /* Chrome, Safari, Opera */
-    position: absolute;
-    top: 0px !important;
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: .8px;
-    li {
-        &.active,
-        &:hover {
-            -webkit-box-shadow: inset 0px -3px 0px 0px #fff;
-            -moz-box-shadow: inset 0px -3px 0px 0px #fff;
-            box-shadow: inset 0px -3px 0px 0px #fff;
-        }
-        a {
-            min-width: 150px;
-            text-align: center;
-        }
+.material-table {
+    td {
+        text-align: center;
     }
 }
 
@@ -246,6 +258,82 @@ footer.page-footer {
     }
     table {
         overflow: scroll;
+        tr {
+            td {
+                height: 48px;
+                font-size: 13px;
+                color: rgba(0, 0, 0, 0.87);
+                border-bottom: solid 1px #DDDDDD;
+                white-space: nowrap;
+                a {
+                    color: inherit;
+                    i {
+                        font-size: 18px;
+                        color: rgba(0, 0, 0, 0.54);
+                    }
+                }
+            }
+            font-size: 12px;
+        }
+        th {
+            font-size: 12px;
+            font-weight: 500;
+            color: #757575;
+            cursor: pointer;
+            white-space: nowrap;
+            padding: 0;
+            height: 56px;
+            vertical-align: middle;
+            outline: none !important;
+            &.sorting_asc,
+            &.sorting_desc {
+                color: rgba(0, 0, 0, 0.87);
+            }
+            &.sorting:after,
+            &.sorting_asc:after,
+            &.sorting_desc:after {
+                font-family: 'Material Icons';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 16px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                word-wrap: normal;
+                font-feature-settings: 'liga';
+                -webkit-font-feature-settings: 'liga';
+                -webkit-font-smoothing: antialiased;
+                content: "arrow_back";
+                transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+                display: none;
+                vertical-align: middle;
+            }
+            &.sorting:hover:after,
+            &.sorting_asc:after {
+                display: inline-block;
+            }
+            &.sorting_desc:after {
+                display: inline-block;
+                content: "arrow_forward";
+            }
+        }
+        tbody tr:hover {
+            background-color: #EEE;
+        }
+        th:first-child,
+        td:first-child {
+            padding: 0 0 0 24px;
+            text-align: left;
+            font-weight: bold;
+            min-width: 100px;
+        }
+        th:last-child,
+        td:last-child {
+            padding: 0 14px 0 0;
+            text-align: right;
+        }
     }
     .table-header {
         height: 64px;
@@ -352,105 +440,31 @@ footer.page-footer {
             margin-left: 20px;
         }
     }
+}
+
+#gsea-top-table-wrapper {
     table {
-        tr {
-            td {
-                height: 48px;
-                font-size: 13px;
-                color: rgba(0, 0, 0, 0.87);
-                border-bottom: solid 1px #DDDDDD;
-                white-space: nowrap;
-                a {
-                    color: inherit;
-                    i {
-                        font-size: 18px;
-                        color: rgba(0, 0, 0, 0.54);
-                    }
-                }
-            }
-            font-size: 12px;
-        }
-        th {
-            font-size: 12px;
-            font-weight: 500;
-            color: #757575;
-            cursor: pointer;
-            white-space: nowrap;
-            padding: 0;
-            height: 56px;
-            vertical-align: middle;
-            outline: none !important;
-            &.sorting_asc,
-            &.sorting_desc {
-                color: rgba(0, 0, 0, 0.87);
-            }
-            &.sorting:after,
-            &.sorting_asc:after,
-            &.sorting_desc:after {
-                font-family: 'Material Icons';
-                font-weight: normal;
-                font-style: normal;
-                font-size: 16px;
-                line-height: 1;
-                letter-spacing: normal;
-                text-transform: none;
-                display: inline-block;
-                word-wrap: normal;
-                -webkit-font-feature-settings: 'liga';
-                -webkit-font-smoothing: antialiased;
-                content: "arrow_back";
-                -webkit-transform: rotate(90deg);
-                display: none;
-                vertical-align: middle;
-            }
-            &.sorting:hover:after,
-            &.sorting_asc:after {
-                display: inline-block;
-            }
-            &.sorting_desc:after {
-                display: inline-block;
-                content: "arrow_forward";
-            }
-        }
-        tbody tr:hover {
-            background-color: #EEE;
-        }
-        th:first-child,
-        td:first-child {
+        th:nth-child(2),
+        td:nth-child(2) {
             padding: 0 0 0 24px;
             text-align: left;
             font-weight: bold;
-            min-width: 100px;
         }
-    }
-}
-
-#gsea-top-table-wrapper table {
-    th:nth-child(2),
-    td:nth-child(2) {
-        padding: 0 0 0 24px;
-        text-align: left;
-        font-weight: bold;
-    }
-    tr td {
-        white-space: normal;
-    }
-    th:nth-child(8) {
-        max-width: 56px;
-    }
-}
-
-#dgea-top-table-wrapper table th:nth-child(8) {
-    max-width: 56px;
-}
-
-#gsea-top-table-wrapper table th {
-    &:nth-child(3),
-    &:nth-child(4),
-    &:nth-child(5),
-    &:nth-child(6),
-    &:nth-child(7) {
-        min-width: 100px !important;
+        tr td {
+            white-space: normal;
+        }
+        th {
+            &:nth-child(3),
+            &:nth-child(4),
+            &:nth-child(5),
+            &:nth-child(6),
+            &:nth-child(7) {
+                min-width: 100px !important;
+            }
+            &:nth-child(8) {
+                max-width: 56px;
+            }
+        }
     }
 }
 
@@ -463,25 +477,8 @@ footer.page-footer {
     &:nth-child(7) {
         min-width: 80px !important;
     }
-}
-
-.child {
-    font-weight: normal !important;
-    &:hover {
-        background-color: transparent !important;
-    }
-}
-
-div.material-table {
-    table {
-        th:last-child,
-        td:last-child {
-            padding: 0 14px 0 0;
-            text-align: right;
-        }
-    }
-    td {
-        text-align: center;
+    &:nth-child(8) {
+        max-width: 56px;
     }
 }
 
@@ -491,6 +488,13 @@ th {
 
 .child-row-chart {
     cursor: pointer;
+}
+
+.child {
+    font-weight: normal !important;
+    &:hover {
+        background-color: transparent !important;
+    }
 }
 
 input[type=range]+.thumb .value {
@@ -514,24 +518,8 @@ input[type=range]+.thumb .value {
     opacity: 0.8;
 }
 
-.main_front_page_header {
-    font-weight: 500;
-    color: rgba(254, 254, 254, 0.93);
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
-
-.parrallax_writing {
-    font-weight: 500;
-    color: #fff;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
-
 .modebar-btn {
     margin-right: 0;
-}
-
-.adv_param_collapsible {
-    margin-bottom: 1rem;
 }
 
 #analyse_geo_btn {
@@ -540,7 +528,13 @@ input[type=range]+.thumb .value {
     margin-bottom: 1rem;
 }
 
-#adv_params_btn,
+#adv_params_btn {
+    border-bottom: none;
+    height: 45px;
+    float: none;
+    width: 100%;
+}
+
 .load_geo_db_btn {
     float: none;
     width: 100%;
@@ -598,8 +592,4 @@ input[type=range]+.thumb .value {
 .parallax-container .parallax img {
     filter: brightness(80%);
     -webkit-filter: brightness(80%);
-}
-
-.page-footer ul li a:hover {
-    color: #ffffff;
 }
