@@ -7,7 +7,7 @@ require 'geodiver/pool'
 module GeoDiver
   # Module to create the Cache
   module GdsCache
-    class <<self
+    class << self
       extend Forwardable
 
       def_delegators GeoDiver, :logger

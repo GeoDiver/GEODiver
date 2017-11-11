@@ -61,7 +61,7 @@ module GeoDiver
       validator = MarkupValidator.new
       results = validator.validate_text(html)
 
-      results.errors.each { |err| puts err.to_s } if results.errors.length > 0
+      results.errors.each { |err| puts err.to_s } unless results.errors.empty?
       # Allow Attribute color in element link
       results.errors.length.should == 1
     end
