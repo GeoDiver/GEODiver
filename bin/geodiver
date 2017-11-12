@@ -46,6 +46,9 @@ BANNER
        ' Developer API, if necessary as well)',
        argument: true
 
+    on 'ssl',
+       'Whether or not to use SSL'
+
     on 's', 'set',
        'Set configuration value in default or given config file'
 
