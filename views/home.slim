@@ -12,8 +12,10 @@ html lang="en"
     javascript:
       !function(e){"use strict";var n=function(n,t,i){function o(e){return r.body?e():void setTimeout(function(){o(e)})}var d,r=e.document,a=r.createElement("link"),l=i||"all";if(t)d=t;else{var f=(r.body||r.getElementsByTagName("head")[0]).childNodes;d=f[f.length-1]}var s=r.styleSheets;a.rel="stylesheet",a.href=n,a.media="only x",o(function(){d.parentNode.insertBefore(a,t?d:d.nextSibling)});var u=function(e){for(var n=a.href,t=s.length;t--;)if(s[t].href===n)return e();setTimeout(function(){u(e)})};return a.addEventListener&&a.addEventListener("load",function(){this.media=l}),a.onloadcssdefined=u,u(function(){a.media!==l&&(a.media=l)}),a};"undefined"!=typeof exports?exports.loadCSS=n:e.loadCSS=n}("undefined"!=typeof global?global:this);
       loadCSS( "#{uri('assets/css/style-' + GeoDiver::VERSION + '.min.css')}" )
+      loadCSS( "https://fonts.googleapis.com/icon?family=Material+Icons" );
     noscript
       link type="text/css" rel="stylesheet"  href="#{uri('assets/css/style-' + GeoDiver::VERSION + '.min.css')}"
+      link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"
     link href="#{uri('assets/img/icons/apple-touch-icon-57x57.png')}" rel="apple-touch-icon" sizes="57x57" /
     link href="#{uri('assets/img/icons/apple-touch-icon-60x60.png')}" rel="apple-touch-icon" sizes="60x60" /
     link href="#{uri('assets/img/icons/apple-touch-icon-72x72.png')}" rel="apple-touch-icon" sizes="72x72" /
@@ -40,20 +42,15 @@ html lang="en"
   body
     nav.white role="navigation"
       .nav-wrapper.container
-        span.hide-on-med-and-down.logo
+        span.logo
           img height="64" src="#{uri('assets/img/geodiver-black.min.svg')}" alt="GeoDiver Logo" style="padding: 7px 0;"
         a#logo-container.brand-logo href="#"
           | &nbsp;GeoDiver
-        ul.right.hide-on-med-and-down
+        ul.right
           li
             a.login_button
               i.material-icons.right> perm_identity
               | Login
-        ul#nav-mobile.side-nav
-          li
-            a.login_button  Login
-        a.button-collapse data-activates="nav-mobile" href="#"
-          i.material-icons menu
     #index-banner.parallax-container
       .section.no-pad-bot
         .container
@@ -63,40 +60,56 @@ html lang="en"
           .row.center
             h5.header.col.s12.light.parrallax_writing   An easy to use web tool for analysing GEO datasets.
           .row.center
-            a#download-button.btn-large.waves-effect.waves-light.blue.darken-1.hoverable href="analyse"  Dive In
-          br/
-          br/
+            a#download-button.btn-large.waves-effect.waves-light.blue.darken-1.hoverable href="analyse"
+              | Dive In
+              i.material-icons.right  send
+          .row.center
+            a#tour-button.btn.waves-effect.waves-light.blue.darken-1.hoverable href="analyse#guided_tour" 
+              | GeoDiver Guided Tour
+              i.material-icons.left  touch_app
+            a#examplar_results.btn.waves-effect.waves-light.blue.darken-1.hoverable href="#"  style="margin-left:10px"
+              | Exemplar Results Page
+              i.material-icons.left  view_day
+            br/
+            br/
+            br/
+            br/
+            .clearfix
       .parallax
-        img alt=("Unsplashed background img 1") src="#{uri('assets/img/background1.jpg')}" /
+        img alt=("Dna molecule on gene expression heatmap") src="#{uri('assets/img/gene_express_heatmap.jpg')}" /
     .container
       .section
         /! Icon Section
         .row
-          .col.s12.m4
+          .col.m12.l4
             .icon-block
               h2.center.blue-text
                 i.material-icons flash_on
               h5.center Speeds up Research
               p.light.center An intuitive and simple User Interface for analysing Gene Expression Omnibus (GEO) databases - only two clicks are required to carry out a plethora of analyses.
-          .col.s12.m4
+          .col.m12.l4
             .icon-block
               h2.center.blue-text
                 i.material-icons assessment
               h5.center Publication Ready Graphics
               p.light.center  High Quality graphics are produced which can be shared with others, reviewed at a later date and many of them being interactive.
-          .col.s12.m4
+          .col.m12.l4
             .icon-block
               h2.center.blue-text
                 i.material-icons settings
-              h5.center DGEA and GAGE
+              h5.center DGEA &amp; GAGE 
               p.light.center You can carry out Differential Gene Expression Analysis (DGEA) and Generally Applicable Gene Enrichment (GAGE) Analysis.
     .parallax-container.valign-wrapper
-      / .section.no-pad-bot
-      /   .container
-      /     .row.center
-      /       h5.header.col.s12.light.parrallax_writing  Differential Gene Expression and Gene Set Enrichment Analysis.
+      .section.no-pad-bot
+        .container
+          .row.center
+            h5.header.col.s12.light.parrallax_writing  See our publications for more information on how GeoDiver works.
+          .row.center
+            a#download-button.btn-large.waves-effect.waves-light.blue.darken-1.hoverable href="https://doi.org/10.1101/127753" target="_blank"
+              |  Publication
+              i.material-icons.right  class
       .parallax
-        img alt=("Unsplashed background img 2") src="#{uri('assets/img/background2.jpg')}" /
+        img alt=("dna molecule") src="#{uri('assets/img/dna_molecule.jpg')}" /
     .container
       .section
         .row
@@ -104,35 +117,68 @@ html lang="en"
             h3
               i.mdi-content-send.blue-text
             h4 Contact Us
-            p.left-align.light.center If you wish to report any errors or contact us for any other reason please send us an <a href="mailto:mail.geodiver@gmail.com?Subject=GeoDiver%20Feedback" target="_top">email</a>
-    .parallax-container.valign-wrapper
-      / .section.no-pad-bot
-      /   .container
-      /     .row.center
-      /       h5.header.col.s12.light.parrallax_writing Store, retrieve and share your results
-      .parallax
-        img alt=("Unsplashed background img 3") src="#{uri('assets/img/background3.jpg')}" /
-    footer.page-footer.blue.darken-4
+            p.light.center
+              | If you wish to report any errors or would like to make a feature request or wish to contact us for any other reason please fill out the below. Alternatively, please create an Github issue on this 
+              a href="https://github.com/GeoDiver/GeoDiver/issues" target="_blank" page 
+              | or send us an 
+              a href="mailto:mail.geodiver@gmail.com?Subject=GeoDiver%20Feedback" target="_top"  email
+              | . If you are a developer and wish to work on GeoDiver, please contact us and we would to work with you to improve GeoDiver.
+            p.light.center 
+        form#contactForm.col.s12
+          .row
+            .input-field.col.s6
+              input.validate id="name" type="text" name="name"
+              label for="name"  Name
+            .input-field.col.s6
+              input.validate id="email" type="email" name="email"
+              label for="email"  Email Address
+            .input-field.col.s12
+              textarea.materialize-textarea id="msg" name="msg"
+              label for="msg" Message
+            / Recapthca
+            .g-recaptcha data-sitekey="6Lea-jcUAAAAAAv1fEdiJmqGz4ih_tDXM6NKrOXW"
+            .clearfix
+            a.btn.btn-large.waves-effect.waves-light.blue.darken-1.hoverable.right
+              | Submit
+              i.material-icons.right  send
+    footer.page-footer.light-blue.darken-4
       .container
         .row
           .col.l6.s12
-            h5.white-text About Us
-            p.grey-text.text-lighten-4
-              | We are a team of 5 Bioinformaticians who created GeoDiver as part of our Bioinformatics MSc. six-week group project.
+            h5.white-text.light About Us
+            p.grey-text.text-lighten-2.light
+              | This tool was initially developed by a group of five bioinformaticians at Queen Mary, University of London including  
+              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/ismail-moghul/" Ismail Moghul
+              | ,  
+              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/nazrath-nawaz-19283994" Nazrath Nawaz
+              | ,  
+              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/suresh-hewapathirana-2758a069" Suresh Hewapathirana
+              | ,  
+              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/anisatu-rashid-84a075152" Anisa Rashid  
+              | and  
+              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/marian-priebe-056369122" Marian Priebe
+              | . 
+              | GeoDiver has then been extensively further developed on Github as an open source project under the GNU Affero GPL v3.0 License.
           .col.l6.s12
-            h5.white-text Connect
+            h5.white-text.light Useful Links
             ul
               li
-                a.white-text href="https://github.com/GeoDiver/GeoDiver"  Our Github page
+                a.yellow-text.text-lighten-3.light href="/faq"  Frequency Asked Questions
               li
-                a.white-text href="http://www.sbcs.qmul.ac.uk/postgraduate/masters/courses/169225.html"  Queen Mary Bioinformatics
+                a.yellow-text.text-lighten-3.light href="https://github.com/GeoDiver/GeoDiver"  Source Code on Github
+              li
+                a.yellow-text.text-lighten-3.light href="https://doi.org/10.1101/127753"  Paper
+              li
+                a.yellow-text.text-lighten-3.light href="https://www.ncbi.nlm.nih.gov/geo/"  NCBI GEO
+              li
+                a.yellow-text.text-lighten-3.light href="https://www.sbcs.qmul.ac.uk/postgraduate/masters/courses/169225.html"  Queen Mary Bioinformatics
       .footer-copyright
         .container
-          | &copy; 2016 - 
-          a.brown-text.text-lighten-3 href="#!"  IsmailM, Nazrath, Suresh, Anisa & Marian
+          | &copy; Authors 2017 under a GNU Affero GPL v3.0 Open Source License
     /! Scripts
     script src="https://code.jquery.com/jquery-3.2.1.min.js"
     script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"
+    script src='https://www.google.com/recaptcha/api.js'
     javascript:
       $( document ).ready(function() {
         $(".button-collapse").sideNav();

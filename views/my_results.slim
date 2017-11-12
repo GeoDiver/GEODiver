@@ -1,7 +1,6 @@
 #results_section.container style="padding-top:2rem;"
   .row
-    - if @my_results.nil?
-    - else
+    - unless @my_results.nil?
       - @my_results.each do |result|
         .col.s12.m6
           .card.hoverable data-user="#{result['user']}" data-geodb="#{result['geo_db']}" data-result="#{result['uniq_result_id']}" data-share-link="#{result['share_url']}" data-results-link="#{result['results_url']}"
