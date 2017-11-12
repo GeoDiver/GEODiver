@@ -105,6 +105,9 @@ if (!GD) {
                         GD.addGeoDbInfo($('input[name=geo_db]').val());
                         GD.analyseValidation();
                         $('#loading_modal').modal('close');
+                        if ($('.shepherd-open').length) {
+                            GD.shepherd.next();
+                        }
                     },
                     error: function(e, status) {
                         GD.ajaxError(e, status);
@@ -784,9 +787,156 @@ if (!GD) {
             return "http://";
         }
     };
+
+    GD.guidedTour = function() {
+        GD.shepherd = new Shepherd.Tour({
+            defaults: {
+                classes: "shepherd-element shepherd-open shepherd-theme-arrows",
+                showCancelLink: true
+            }
+        });
+
+        GD.shepherd.addStep("welcome", {
+            title: 'Welcome!',
+            text: [
+                'Welecome to our GeoDiver Tour!<br>',
+                'We will go through the analysis of an exemplar GEO dataset.<br>',
+                'If you have any issues feel free to contact us via the contact form on the <a href="https://geodiver.co.uk" target="_blank">home page</a> '
+            ],
+            attachTo: "#load_geo_card bottom",
+            classes: "shepherd-transparent-text shepard-welcome",
+            buttons: [{
+                    text: "Exit",
+                    classes: "btn-flat btn-flat-background waves-effect waves-light light-grey left",
+                    action: GD.shepherd.cancel
+                },
+                {
+                    text: "Next",
+                    action: GD.shepherd.next,
+                    classes: "btn waves-effect waves-light light-blue accent-4"
+                }
+            ]
+        });
+        GD.shepherd.addStep("enter_accession", {
+            title: 'Step 1: Enter GEO Accession Number',
+            text: [
+                'Here, you need to enter the accession number of the GEO dataset that you wish to analyse.',
+                '<strong>For the exemplar datasets, please enter: "GDS724" or "GSE_____"</strong>',
+                'Alternatively, select the buttons below to analyse the corresponing exemplar dataset',
+                'You can find GEO datasets to analyse on <a href="https://www.ncbi.nlm.nih.gov/geo/" target="_blank"> NCBI\'s GEO page</a>. However, note that GeoDiver only works with GEO datasets containing expression data.'
+            ],
+            classes: "shepard-enter_accession",
+            attachTo: "#search_geo_dataset bottom",
+            buttons: [{
+                    text: "Back",
+                    classes: "btn-flat btn-flat-background waves-effect waves-light light-grey left",
+                    action: GD.shepherd.back
+                },
+                {
+                    text: "GDS724",
+                    classes: 'btn waves-effect waves-light light-blue accent-4',
+                    action: function() {
+                        $("#search_geo_db").val('GDS724');
+                        GD.shepherd.next();
+                    }
+                },
+                {
+                    text: "GSE____",
+                    classes: 'btn waves-effect waves-light light-blue accent-4',
+                    action: function() {
+                        $("#search_geo_db").val("GSE___");
+                        GD.shepherd.next();
+                    }
+                },
+                {
+                    text: "Next",
+                    classes: 'btn waves-effect waves-light light-blue accent-4',
+                    action: function() {
+                        GD.shepherd.next();
+                    }
+                }
+            ]
+        });
+        GD.shepherd.addStep("load_datasets", {
+            title: "Step 2: Load the GEO Dataset",
+            text: 'Next we need to load the GEO dataset. For this, simply click on the "Load GEO Dataset button.',
+            attachTo: "#geo_db_title show",
+            classes: "shepard-load_datasets",
+            buttons: [{
+                    text: "Back",
+                    classes: "btn-flat btn-flat-background waves-effect waves-light light-grey left",
+                    action: GD.shepherd.back
+                },
+                {
+                    text: "Next",
+                    classes: 'btn waves-effect waves-light light-blue accent-4',
+                    action: GD.shepherd.next
+                }
+            ]
+        });
+        GD.shepherd.addStep("geodb_dataset", {
+            title: "Step 3: The GEO Dataset",
+            text: [
+                'The GEO dataset has now been loaded.',
+                'You can find out more about the GEO dataset by clicking on the blue info button at the end of GEO Dataset title.'
+            ],
+            attachTo: "#geo_db_title top",
+            classes: "shepard-geodb_dataset",
+            buttons: [{
+                    text: "Back",
+                    classes: "btn-flat btn-flat-background waves-effect waves-light light-grey left",
+                    action: GD.shepherd.back
+                },
+                {
+                    text: "Next",
+                    classes: "btn waves-effect waves-light light-blue accent-4",
+                    action: GD.shepherd.next
+                }
+            ]
+        });
+        GD.shepherd.addStep("example", {
+            title: "Step 4: Select Factor of Interest",
+            text: [
+                "Next select the factor that you are most interested in analysing.",
+            ],
+            attachTo: "#geo_db_title top",
+            classes: "shepard-geodb_dataset",
+            buttons: [{
+                    text: "Back",
+                    classes: "btn-flat btn-flat-background waves-effect waves-light light-grey left",
+                    action: GD.shepherd.back
+                },
+                {
+                    text: "More Info",
+                    classes: "btn waves-effect waves-light light-blue accent-4",
+                    action: GD.shepherd.next
+                },
+                {
+                    text: "Next",
+                    classes: "btn waves-effect waves-light light-blue accent-4",
+                    action: GD.shepherd.next
+                }
+            ]
+        });
+        return GD.shepherd.start();
+    };
+
+    GD.initTour = function() {
+        if (window.location.href.indexOf("analyse#guided_tour") !== -1) {
+            GD.guidedTour();
+        }
+    };
 }());
 
 (function($) {
+    $.each(["show", "hide"], function(i, ev) {
+        var el = $.fn[ev];
+        $.fn[ev] = function() {
+            this.trigger(ev);
+            return el.apply(this, arguments);
+        };
+    });
+
     $.fn.exists = function() { return this.length > 0; };
 
     // Fn to allow an event to fire after all images are loaded
@@ -812,6 +962,7 @@ if (!GD) {
     };
 
     $(function() {
+        GD.initTour();
         $('.button-collapse').sideNav();
         $('select').material_select();
         $('#login_modal').modal();
