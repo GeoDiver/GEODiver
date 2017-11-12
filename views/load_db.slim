@@ -13,15 +13,15 @@
       span.light-blue-text.text-darken-3.heading2 Select Factor to Analyse
       - @geo_db_results['Factors'].each do |factor, phenotypes|
         p
-          input id="#{factor.gsub(/[\/\\\.\:\#\s]/, '_')}" name="factor" type="radio" value="#{phenotypes['value']}"
-          label for="#{factor.gsub(/[\\\.\:\#\s]/, '_')}"
+          input id="#{Base64.urlsafe_encode64(factor).tr('=','_')}" name="factor" type="radio" value="#{phenotypes['value']}"
+          label for="#{Base64.urlsafe_encode64(factor).tr('=','_')}"
             | #{factor.split(/[.\s]/).map(&:capitalize).join(' ')}
     br
     .input-field.col.s12
       span.light-blue-text.text-darken-3.heading2 Select the two sets of samples to compare.
     .row
       - @geo_db_results['Factors'].each do |factor, phenotypes|
-        .select_factors id="#{factor.gsub(/[\/\\\.\:\#\s]/, '_')}_select" style="display:none;"
+        .select_factors id="#{Base64.urlsafe_encode64(factor).tr('=','_')}_select" style="display:none;"
           .input-field.col.s12.m6
             select#groupaSelect multiple="" name="groupa[]"
               option disabled="" selected="" value=""  Choose your option(s) (Group A)
