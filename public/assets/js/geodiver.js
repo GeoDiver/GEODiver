@@ -564,7 +564,7 @@ if (!GD) {
     GD.addGeoDbInfo = function(geoAccession) {
         var accession = geoAccession.toUpperCase();
 
-        var jsonFile = GD.protocol + window.location.host + "/GeoDiver/DBs/" + accession + ".json";
+        var jsonFile = GD.protocol() + window.location.host + "/GeoDiver/DBs/" + accession + ".json";
         $.getJSON(jsonFile, function(json) {
             $('#dataset_accession').text(' ' + json.Accession);
             $('#dataset_title').text(json.Title);
@@ -766,7 +766,7 @@ if (!GD) {
                         data: response,
                         success: function() {
                             // TODO - just update the DOM instead of a redirect
-                            $(location).attr("href", GD.protocol + window.location.host + "/analyse");
+                            $(location).attr("href", GD.protocol() + window.location.host + "/analyse");
                         }
                     });
                 } else {
