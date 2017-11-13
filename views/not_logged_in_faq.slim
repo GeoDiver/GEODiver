@@ -1,38 +1,84 @@
 doctype html
 html lang="en"
   head
-    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type"
     meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport"
     title GeoDiver
     /! Need to add critical CSS
     javascript:
       !function(e){"use strict";var n=function(n,t,i){function o(e){return r.body?e():void setTimeout(function(){o(e)})}var d,r=e.document,a=r.createElement("link"),l=i||"all";if(t)d=t;else{var f=(r.body||r.getElementsByTagName("head")[0]).childNodes;d=f[f.length-1]}var s=r.styleSheets;a.rel="stylesheet",a.href=n,a.media="only x",o(function(){d.parentNode.insertBefore(a,t?d:d.nextSibling)});var u=function(e){for(var n=a.href,t=s.length;t--;)if(s[t].href===n)return e();setTimeout(function(){u(e)})};return a.addEventListener&&a.addEventListener("load",function(){this.media=l}),a.onloadcssdefined=u,u(function(){a.media!==l&&(a.media=l)}),a};"undefined"!=typeof exports?exports.loadCSS=n:e.loadCSS=n}("undefined"!=typeof global?global:this);
-      loadCSS( "#{uri('assets/css/style-' + GeoDiver::VERSION + '.min.css')}" )
+      loadCSS( "https://fonts.googleapis.com/icon?family=Material+Icons" );
+      loadCSS( "#{uri('assets/css/style-' + GeoDiver::VERSION + '.min.css')}" );
     noscript
+      link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"
       link type="text/css" rel="stylesheet"  href="#{uri('assets/css/style-' + GeoDiver::VERSION + '.min.css')}"
+    link href="#{uri('assets/img/icons/apple-touch-icon-57x57.png')}" rel="apple-touch-icon" sizes="57x57" /
+    link href="#{uri('assets/img/icons/apple-touch-icon-60x60.png')}" rel="apple-touch-icon" sizes="60x60" /
+    link href="#{uri('assets/img/icons/apple-touch-icon-72x72.png')}" rel="apple-touch-icon" sizes="72x72" /
+    link href="#{uri('assets/img/icons/apple-touch-icon-76x76.png')}" rel="apple-touch-icon" sizes="76x76" /
+    link href="#{uri('assets/img/icons/apple-touch-icon-114x114.png')}" rel="apple-touch-icon" sizes="114x114" /
+    link href="#{uri('assets/img/icons/apple-touch-icon-120x120.png')}" rel="apple-touch-icon" sizes="120x120" /
+    link href="#{uri('assets/img/icons/apple-touch-icon-144x144.png')}" rel="apple-touch-icon" sizes="144x144" /
+    link href="#{uri('assets/img/icons/apple-touch-icon-152x152.png')}" rel="apple-touch-icon" sizes="152x152" /
+    link href="#{uri('assets/img/icons/apple-touch-icon-180x180.png')}" rel="apple-touch-icon" sizes="180x180" /
+    link href="#{uri('assets/img/icons/favicon-32x32.png')}" rel="icon" sizes="32x32" type="image/png" /
+    link href="#{uri('assets/img/icons/favicon-194x194.png')}" rel="icon" sizes="194x194" type="image/png" /
+    link href="#{uri('assets/img/icons/favicon-96x96.png')}" rel="icon" sizes="96x96" type="image/png" /
+    link href="#{uri('assets/img/icons/android-chrome-192x192.png')}" rel="icon" sizes="192x192" type="image/png" /
+    link href="#{uri('assets/img/icons/favicon-16x16.png')}" rel="icon" sizes="16x16" type="image/png" /
+    link href="#{uri('assets/img/icons/manifest.json')}" rel="manifest" /
+    link color="#2196f3" href="#{uri('assets/img/icons/safari-pinned-tab.svg')}" rel="mask-icon" /
+    link href="#{uri('assets/img/icons/favicon.ico')}" rel=("shortcut icon") /
+    meta content="GeoDiver" name="apple-mobile-web-app-title" /
+    meta content="GeoDiver" name="application-name" /
+    meta content="#2d89ef" name="msapplication-TileColor" /
+    meta content="#{uri('assets/img/icons/mstile-144x144.png')}" name="msapplication-TileImage" /
+    meta content="#{uri('assets/img/icons/browserconfig.xml')}" name="msapplication-config" /
+    meta content="#90caf9" name="theme-color" /
   body.app
-    nav.blue.darken-4
+    nav
       .nav-wrapper
         span.hide-on-med-and-down.logo
-          img height="64" src="#{uri('assets/img/geodiver-white.min.svg')}" alt="GeoDiver Logo"
-        a#logo-container.brand-logo.white-text href="#{request.base_url}"
+          img height="64" src="#{uri('assets/img/geodiver-white.min.svg')}" alt="GeoDiver Logo" style="padding: 7px 0;"
+          a#logo-container.brand-logo.white-text href="#{request.base_url}"
+            | &nbsp;GeoDiver
+        a#logo-container.brand-logo.white-text.hide-on-large-only href="#{request.base_url}"
           | &nbsp;GeoDiver
         ul.hide-on-med-and-down.navbar_centered
-          li
-            a.white-text href="/auth/google_oauth2"  Analyse   
-          li
-            a.white-text href="/auth/google_oauth2"  My Results
-        ul.right.hide-on-med-and-down
-          li
-            a.login_button.white-text
-              i.material-icons.right> perm_identity
-              | Login
+          li class=('active' if uri =~ %r{/analyse} )
+            a.white-text href="#{request.base_url}/analyse"  Analyse    
+          li class=('active' if uri =~ %r{/my_results} )
+            - if session[:user].nil?
+              a.white-text.modal-trigger href="#login_modal"  My Results
+            - else
+              a.white-text href="#{request.base_url}/my_results"  My Results
+        ul.right.hide-on-med-and-down style="position:absolute;top:0 !important;right:0;"
+          - if ! session[:user].nil?
+            li.user data-user="#{Base64.encode64(session[:user].info['email']).chomp}"
+              a.white-text.dropdown-button href="#!" data-activates="dropdown" data-beloworigin="true"
+                span.left style="padding-right:15px; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;"
+                  | #{session[:user].info['first_name']}
+                img.circle.profile_img.right alt="Profile Picture" src="#{session[:user].info['image']}"/
+                .clearfix
+          - else
+            li
+              a.login_button.white-text
+                i.material-icons.right> perm_identity
+                | Login
         .container
           a.button-collapse data-activates="nav-mobile" href="#"
             i.material-icons.white-text menu
         ul#nav-mobile.side-nav
           li
-            a.login_button  Login
+            a href="#{request.base_url}/analyse"  Analyse
+          li
+            a href="#{request.base_url}/my_results"  My Results
+          - if ! session[:user].nil?
+            li
+              a href="#{request.base_url}/logout"  Logout
+          - else
+            li
+              a.login_button  Login
     .container
       h3  Frequently Asked Questions
 
@@ -66,62 +112,14 @@ html lang="en"
       h5  My question is not listed above
       p  Please feel free to fill the feedback form and we will be happy to help you with any questions you may have
 
-
-
-    #loading_modal.modal
+    #login_modal.modal
       .modal-content
-        h4#modal_header_text
-        p#modal_text
-        .progress
-          .indeterminate.light-blue.accent-2
-    /! Dropdown Structure
-    ul#dropdown.dropdown-content.collection style="z-index:5;"
-      li.collection-item.avatar
-        i.material-icons.circle.light-blue.accent-3  live_help
-        span.title FAQs
-      li.collection-item.avatar
-        i.material-icons.circle.light-blue.accent-3  feedback
-        span.title Feedback
-      li.collection-item.avatar onclick="location.href='/logout';" style="cursor: pointer;"
-        i.material-icons.circle.light-blue.accent-3  power_settings_new
-        span.title Log Out
-
-    #share_modal.modal
-      .modal-content
-        h4 Share Your Results
-        p Your Results are accessible using the following link
-        .row
-          .input-field.col.s12
-            input#share_link_input.share_link_input type="text" placeholder="Share Link" /
-            label for="share_link_input"  Share Link
+        h4 Please login to see the results of your previous analyses
+        p  We need to know who you are in order to show you the results of your previous analyses. Please click on the button below in order to login using your Google account.
       .modal-footer
-        a.remove_link.waves-effect.waves-red.btn-flat.left  Remove Sharing Link
-        a.modal-action.modal-close.waves-effect.waves-green.btn-flat href="#!"  Done
-
-    #share_the_link_modal.modal
-      .modal-content
-        h4 Your Results are Accessible using the following link
-        .row
-          .input-field.col.s12
-            input#share_link_input1.share_link_input type="text" placeholder="Share Link" /
-            label for="share_link_input1"  Share Link
-      .modal-footer
-        a.remove_link.waves-effect.waves-red.btn-flat.left  Remove Sharing Link
-        a.modal-action.modal-close.waves-effect.waves-green.btn-flat href="#!"  Done
-
-    #delete_modal.modal
-      .modal-content
-        h4 Delete Results
-        p Are you sure you want to delete this Result?
-      .modal-footer
-        a.modal-action.modal-close.waves-effect.waves-green.btn-flat.left href="#!"   Cancel
-        a.delete-results.waves-effect.waves-red.btn-flat   Delete
-
-
+        a.modal-action.modal-close.waves-effect.waves-red.btn-flat.left href="#!"   Cancel
+        a.login_button.waves-effect.waves-green.btn-flat  Login
 
     script src="https://code.jquery.com/jquery-3.2.1.min.js"
     script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"
-    script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"
-    script src="https://cdn.plot.ly/plotly-latest.min.js"
-    script src="//cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"
     script src="#{uri('assets/js/geodiver-' + GeoDiver::VERSION + '.min.js')}"
