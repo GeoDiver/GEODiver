@@ -38,3 +38,14 @@ task :assets do
      " './public/assets/js/geodiver.js' -m -c --source-map  -o" \
      " './public/assets/js/geodiver-#{GeoDiver::VERSION}.min.js'"
 end
+
+task :criticalcss do
+  require_relative 'lib/geodiver'
+  puts 'Note that GeoDiver needs to be running on Port 9292 for this to work'
+  puts 'You will need to manually insert the Critical CSS'
+  puts 'You run `npm install` before running this rake command'
+  `rm ./public/assets/css/criticl/home.min.css`
+  `rm ./public/assets/css/criticl/app.min.css`
+  `rm ./public/assets/css/criticl/exemplar_results.min.css`
+  sh "node #{File.join(GeoDiver.root, 'public/assets/css/critical/critical.js')}"
+end
