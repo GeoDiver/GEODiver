@@ -45,7 +45,7 @@ module GeoDiver
       init_dirs
       set_up_default_user_dir
       check_num_threads
-      generate_exemplar_results
+      # generate_exemplar_results
 
       self
     end
