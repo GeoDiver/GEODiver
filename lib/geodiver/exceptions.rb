@@ -38,6 +38,16 @@ MSG
     end
   end
 
+  ## RCORE##
+
+  # Raised if RCore cannot be used to generate the exemplar results
+  class RCORE_FAILURE < StandardError
+    def to_s
+      'There seems to be an error in running the R core.'
+    end
+  end
+
+
   ## ENOENT ##
 
   # Name borrowed from standard Errno::ENOENT, this class serves as a template

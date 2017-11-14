@@ -3,7 +3,10 @@ require 'fileutils'
 
 require 'geodiver/config'
 require 'geodiver/exceptions'
+require 'geodiver/load_geo_db'
 require 'geodiver/logger'
+require 'geodiver/geo_analysis'
+require 'geodiver/geo_analysis_helper'
 require 'geodiver/routes'
 require 'geodiver/server'
 require 'geodiver/version'
@@ -39,15 +42,16 @@ module GeoDiver
       @config = Config.new(config)
       Thread.abort_on_exception = true if verbose?
 
-
       init_dirs
       set_up_default_user_dir
       check_num_threads
+      generate_exemplar_results
 
       self
     end
 
-    attr_reader :config, :temp_dir, :public_dir, :users_dir, :db_dir
+    attr_reader :config, :temp_dir, :public_dir, :users_dir, :db_dir,
+                :exemplar_results
 
     # Starting the app manually
     def run
@@ -154,8 +158,9 @@ module GeoDiver
 
     def server_url
       host = config[:host]
-      host = 'localhost' if host == '127.0.0.1' || host == '0.0.0.0'
-      "http://#{host}:#{config[:port]}"
+      host = 'localhost' if ['127.0.0.1', '0.0.0.0'].include? host
+      proxy = GeoDiver.ssl? ? 'https' : 'http'
+      "#{proxy}://#{host}:#{config[:port]}"
     end
 
     def open_in_browser(server_url)
@@ -173,6 +178,48 @@ module GeoDiver
 
     def xdg?
       true if ENV['DISPLAY'] && system('which xdg-open > /dev/null 2>&1')
+    end
+
+    # Test if the RCore is working and also produce the exemplar results
+    def generate_exemplar_results
+      logger.debug 'Testing RCore and producing Exemplar Results Page'
+      session_geodb = load_geo_db
+      email         = 'geodiver'
+      r = GeoAnalysis.run(default_params, email, server_url, session_geodb)
+      assert_rcore_works(r)
+      @exemplar_results = File.join('geodiver', r[:geo_db], r[:uniq_result_id])
+      logger.debug "Exemplar Results page is available at: #{r[:results_url]}"
+    end
+
+    def load_geo_db
+      LoadGeoData.run('geo_db' => 'GDS724')
+      LoadGeoData.convert_geodb_into_rdata('GDS724')
+    end
+
+    def assert_rcore_works(r)
+      return if r[:overview_exit_code].zero? && r[:dgea_exit_code].zero? &&
+                r[:gage_exit_code].zero?
+      raise RCORE_FAILURE
+    end
+
+    def default_params
+      { 'geo_db' => 'GDS724', 'user' => 'Z2VvZGl2ZXI=', 'factor' => 'tissue',
+        'groupa' => ['peripheral blood lymphocyte'], 'groupb' => ['kidney'],
+        'dgea' => 'on', 'dgea_toptable' => 'on',
+        'dgea_number_top_genes' => '250',
+        'dgea_volcano_pValue_cutoff' => 'fdr', 'dgea_heatmap' => 'on',
+        'dgea_heatmap_rows' => '100',
+        'dgea_heatmap_distance_method' => 'euclidean',
+        'dgea_heatmap_clustering_method' => 'complete',
+        'dgea_cluster_by_genes' => 'true', 'dgea_cluster_by_samples' => 'true',
+        'dgea_cluster_based_on' => 'on',
+        'dgea_volcano' => 'on', 'gsea' => 'on', 'gsea_type' => 'ExpVsCtrl',
+        'gsea_control_group' => 'on', 'gsea_dataset' => 'KEGG',
+        'gsea_heatmap' => 'on', 'gsea_heatmap_rows' => '100',
+        'gsea_heatmap_distance_method' => 'euclidean',
+        'gsea_heatmap_clustering_method' => 'complete',
+        'gsea_cluster_by_genes' => 'true', 'gsea_cluster_by_samples' => 'true',
+        'gsea_cluster_based_on' => 'on' }
     end
   end
 end
