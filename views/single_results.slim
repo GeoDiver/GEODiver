@@ -23,7 +23,7 @@
           | GeoDiver Results: #{@results['geo_db']}
       - if @results['overview_exit_code'].to_i == 0
         .card-action
-          span#overview.card-title.light-blue-text.text-darken-3 style=("padding-left:0;") data-overview-json="#{@results['assets_path']}/data.json"
+          span#overview.card-title.light-blue-text.text-darken-3 style=("padding-left:0;") data-overview-json="#{@results['assets_path']}/pca_data.json"
             |  Overview (PCA, HCA, Boxplots)
           p.section
             span.light-blue-text.text-darken-3.heading2 Overview Boxplots
