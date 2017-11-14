@@ -172,7 +172,7 @@ html lang="en"
     javascript:
       GD.CLIENT_ID = "#{ENV['GOOGLE_KEY']}"
       GD.USING_SLL = "#{GeoDiver.ssl?}"
-    - if request.path_info =~ %r{^/result/} || request.path_info =~ %r{^/sh/} || request.path_info =~ %r{^/my_results}
+    - if request.path_info =~ %r{^/result/} || request.path_info =~ %r{^/sh/} || request.path_info =~ %r{^/my_results} || request.path_info =~ %r{^/exemplar_results}
       javascript:
         $( document ).ready(function() {
             GD.createPlots();

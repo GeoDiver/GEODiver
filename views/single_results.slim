@@ -7,18 +7,19 @@
             i.material-icons  info_outline
           a#download-all-results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 data-download="#{@results['assets_path']}/#{@results['geo_db']}_geodiver_results.zip" style="min-width:36px;padding:0 8px;margin-right:0px"
             i.material-icons  file_download
-          a#delete_results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
-            i.material-icons  delete
-          - if File.exist? File.join(@results['full_path'], '.share')
-            a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
-              i.material-icons  link
-            a#share_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
-              i.material-icons  share
-          - else
-            a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
-              i.material-icons  link
-            a#share_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
-              i.material-icons  share
+          - if request.path_info !~ %r{^/sh/} && request.path_info !~ %r{^/exemplar_results}
+            a#delete_results.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
+              i.material-icons  delete
+            - if File.exist? File.join(@results['full_path'], '.share')
+              a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
+                i.material-icons  link
+              a#share_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
+                i.material-icons  share
+            - else
+              a#share_the_link_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px; display:none;"
+                i.material-icons  link
+              a#share_btn.waves-effect.btn-flat.nopadding.light-blue-text.text-darken-3 style="min-width:36px;padding:0 8px;margin-right:0px"
+                i.material-icons  share
         span#results.card-title.light-blue-text.text-darken-3 style=("font-size: 2rem; font-weight: 400;")
           | GeoDiver Results: #{@results['geo_db']}
       - if @results['overview_exit_code'].to_i == 0
@@ -85,8 +86,8 @@
           span#overview.card-title.light-blue-text.text-darken-3 style=("padding-left:0;")
             |  Overview (PCA, HCA, Boxplots)
           p.red-text.text-lighten-2 style="font-size: 1.5rem"
-            strong Apologies, there was an error in running the Overview Script. Please try again
-            .
+            strong Apologies, there was an error in producing the results for this section. Please try the analysis again at: 
+              a href="https://geodiver.co.uk" GeoDiver.co.uk
           p.red-text.text-lighten-2  Error Message: The Overview Script failed to run sucessfully (exit code: #{@results['overview_exit_code']})
           p.red-text.text-lighten-2
             | If the error persists, please contact us via  
@@ -146,8 +147,8 @@
           - else
             #DGEA.col.s12
               p.red-text.text-lighten-2 style="font-size: 1.5rem"
-                strong Apologies, there was an error in running the DGEA Script. Please try again
-                .
+                strong Apologies, there was an error in producing the results for this section. Please try the analysis again at: 
+                  a href="https://geodiver.co.uk" GeoDiver.co.uk
               p.red-text.text-lighten-2  Error Message: The DGEA Script failed to run sucessfully (exit code: #{@results['dgea_exit_code']})
               p.red-text.text-lighten-2
                 | If the error persists, please contact us via  
@@ -170,7 +171,7 @@
                       span.table-title.light-blue-text.text-darken-3.heading2  Generally Applicable Gene Set Enrichment Analysis - Top Table
                       .actions
                         a#download-top-table.waves-effect.btn-flat.nopadding href="#{@results['assets_path']}/gage_toptable.tsv"
-                          i.material-icons  file_download
+                                                  i.material-icons  file_download
                         a.search-toggle.waves-effect.btn-flat.nopadding
                           i.material-icons  search
                     table#gsea-top-table

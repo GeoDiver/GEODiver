@@ -63,7 +63,7 @@ module GeoDiver
         uri = [host = '']
         if absolute
           host << (GeoDiver.ssl? ? 'https://' : 'http://')
-          if request.forwarded? or request.port != (request.secure? ? 443 : 80)
+          if request.forwarded? || request.port != (request.secure? ? 443 : 80)
             host << request.host_with_port
           else
             host << request.host
@@ -92,7 +92,7 @@ module GeoDiver
 
     # Analyse Page
     get '/analyse' do
-      slim :analyse, layout: :app_layout
+      slim :search, layout: :app_layout
     end
 
     # My Results Page
@@ -104,8 +104,10 @@ module GeoDiver
 
     # Individual Result Pages
     get '/result/:encoded_email/:geo_db/:time' do
-      redirect to('auth/google_oauth2') if session[:user].nil?
-      email     = Base64.decode64(params[:encoded_email])
+      email = Base64.decode64(params[:encoded_email])
+      if session[:user].nil? && email != 'geodiver'
+        redirect to('auth/google_oauth2')
+      end
       json_file = File.join(GeoDiver.public_dir, 'GeoDiver/Users/', email,
                             params['geo_db'], params['time'], 'params.json')
       @results  = JSON.parse(IO.read(json_file))
@@ -118,15 +120,20 @@ module GeoDiver
       json_file = File.join(GeoDiver.public_dir, 'GeoDiver/Share/', email,
                             params['geo_db'], params['time'], 'params.json')
       @results  = JSON.parse(IO.read(json_file))
-      slim :share_result, layout: false
+      slim :single_results, layout: :app_layout
+    end
+
+    get '/exemplar_results' do
+      exemplar_results = GeoDiver.exemplar_results
+      puts exemplar_results
+      json_file = File.join(GeoDiver.public_dir, 'GeoDiver/Users/',
+                            exemplar_results, 'params.json')
+      @results  = JSON.parse(IO.read(json_file))
+      slim :single_results, layout: :app_layout
     end
 
     get '/faq' do
-      if session[:user].nil?
-        slim :not_logged_in_faq
-      else
-        slim :faq, layout: :app_layout
-      end
+      slim :faq, layout: :app_layout
     end
 
     # Load the Geo Database
@@ -160,11 +167,11 @@ module GeoDiver
 
     # Create a share link for a result page
     post '/sh/:encoded_email/:geo_db/:time' do
-      email     = Base64.decode64(params[:encoded_email])
-      analysis  = File.join(GeoDiver.users_dir, email, params['geo_db'],
-                            params['time'])
-      share     = File.join(GeoDiver.public_dir, 'GeoDiver/Share', email,
-                            params['geo_db'])
+      email    = Base64.decode64(params[:encoded_email])
+      analysis = File.join(GeoDiver.users_dir, email, params['geo_db'],
+                           params['time'])
+      share    = File.join(GeoDiver.public_dir, 'GeoDiver/Share', email,
+                           params['geo_db'])
       FileUtils.mkdir_p(share) unless File.exist? share
       FileUtils.cp_r(analysis, share)
       share_file = File.join(analysis, '.share')
