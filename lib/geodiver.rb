@@ -90,6 +90,16 @@ module GeoDiver
       Routes.call(env)
     end
 
+    # Run GeoDiver interactively.
+    def irb
+      ARGV.clear
+      require 'irb'
+      IRB.setup nil
+      IRB.conf[:MAIN_CONTEXT] = IRB::Irb.new.context
+      require 'irb/ext/multi-irb'
+      IRB.irb nil, self
+    end
+
     private
 
     # Set up the directory structure in @config[:gd_serve_dir]
