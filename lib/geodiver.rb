@@ -92,12 +92,11 @@ module GeoDiver
 
     # Run GeoDiver interactively.
     def irb
+      # rubocop:disable Lint/Debugger
       ARGV.clear
-      require 'irb'
-      IRB.setup nil
-      IRB.conf[:MAIN_CONTEXT] = IRB::Irb.new.context
-      require 'irb/ext/multi-irb'
-      IRB.irb nil, self
+      require 'pry'
+      binding.pry
+      # rubocop:enable Lint/Debugger
     end
 
     private
@@ -192,12 +191,13 @@ module GeoDiver
 
     # Test if the RCore is working and also produce the exemplar results
     def generate_exemplar_results
+      @exemplar_results = File.join('geodiver', r[:geo_db], 'exemplar_results')
+      return if File.exist?(@exemplar_results)
       logger.debug 'Testing RCore and producing Exemplar Results Page'
       session_geodb = load_geo_db
-      email         = 'geodiver'
-      r = GeoAnalysis.run(default_params, email, server_url, session_geodb)
+      r = GeoAnalysis.run(default_params, 'geodiver', server_url, session_geodb,
+                          'exemplar_results')
       assert_rcore_works(r)
-      @exemplar_results = File.join('geodiver', r[:geo_db], r[:uniq_result_id])
       logger.debug "Exemplar Results page is available at: #{r[:results_url]}"
     end
 
