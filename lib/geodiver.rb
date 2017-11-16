@@ -45,7 +45,7 @@ module GeoDiver
       init_dirs
       set_up_default_user_dir
       check_num_threads
-      # generate_exemplar_results
+      generate_exemplar_results
 
       self
     end
@@ -190,20 +190,20 @@ module GeoDiver
     end
 
     # Test if the RCore is working and also produce the exemplar results
-    def generate_exemplar_results
-      @exemplar_results = File.join('geodiver', r[:geo_db], 'exemplar_results')
+    def generate_exemplar_results(geodb = 'GDS724')
+      @exemplar_results = File.join('geodiver', geodb, 'exemplar_results')
       return if File.exist?(@exemplar_results)
       logger.debug 'Testing RCore and producing Exemplar Results Page'
-      session_geodb = load_geo_db
+      session_geodb = load_geo_db(geodb)
       r = GeoAnalysis.run(default_params, 'geodiver', server_url, session_geodb,
                           'exemplar_results')
       assert_rcore_works(r)
       logger.debug "Exemplar Results page is available at: #{r[:results_url]}"
     end
 
-    def load_geo_db
-      LoadGeoData.run('geo_db' => 'GDS724')
-      LoadGeoData.convert_geodb_into_rdata('GDS724')
+    def load_geo_db(geodb)
+      LoadGeoData.run('geo_db' => geodb)
+      LoadGeoData.convert_geodb_into_rdata(geodb)
     end
 
     def assert_rcore_works(r)
@@ -212,8 +212,8 @@ module GeoDiver
       raise RCORE_FAILURE
     end
 
-    def default_params
-      { 'geo_db' => 'GDS724', 'user' => 'Z2VvZGl2ZXI=', 'factor' => 'tissue',
+    def default_params(geodb = 'GDS724')
+      { 'geo_db' => geodb, 'user' => 'Z2VvZGl2ZXI=', 'factor' => 'tissue',
         'groupa' => ['peripheral blood lymphocyte'], 'groupb' => ['kidney'],
         'dgea' => 'on', 'dgea_toptable' => 'on',
         'dgea_number_top_genes' => '250',
@@ -222,10 +222,10 @@ module GeoDiver
         'dgea_heatmap_distance_method' => 'euclidean',
         'dgea_heatmap_clustering_method' => 'complete',
         'dgea_cluster_by_genes' => 'true', 'dgea_cluster_by_samples' => 'true',
-        'dgea_cluster_based_on' => 'on',
-        'dgea_volcano' => 'on', 'gsea' => 'on', 'gsea_type' => 'ExpVsCtrl',
-        'gsea_control_group' => 'on', 'gsea_dataset' => 'KEGG',
-        'gsea_heatmap' => 'on', 'gsea_heatmap_rows' => '100',
+        'dgea_cluster_based_on' => 'on', 'dgea_volcano' => 'on', 'gsea' => 'on',
+        'gsea_type' => 'ExpVsCtrl', 'gsea_control_group' => 'on',
+        'gsea_dataset' => 'KEGG', 'gsea_heatmap' => 'on',
+        'gsea_heatmap_rows' => '100',
         'gsea_heatmap_distance_method' => 'euclidean',
         'gsea_heatmap_clustering_method' => 'complete',
         'gsea_cluster_by_genes' => 'true', 'gsea_cluster_by_samples' => 'true',

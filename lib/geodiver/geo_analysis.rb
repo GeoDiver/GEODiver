@@ -31,8 +31,8 @@ module GeoDiver
                      :db_dir
 
       #
-      def run(params, email, url, load_geo_db_thread)
-        init(params, email)
+      def run(params, email, url, load_geo_db_thread, uniq_time)
+        init(params, email, uniq_time)
         # wait until geo db has been loaded in background thread
         load_geo_db_thread.join unless load_geo_db_thread.nil?
         assert_load_geo_db_sucess
@@ -72,11 +72,11 @@ module GeoDiver
       end
 
       #
-      def init(params, email)
+      def init(params, email, uniq_time)
         @params = params
         @email  = email
         assert_params
-        setup_run_and_public_dir
+        setup_run_and_public_dir(uniq_time)
         @uniq_time
       end
 
@@ -94,9 +94,10 @@ module GeoDiver
         raise ArgumentError, 'No GEO database provided.'
       end
 
-      #
-      def setup_run_and_public_dir
-        @uniq_time = Time.new.strftime('%Y-%m-%d_%H-%M-%S_%L-%N').to_s
+      # u == uniq_time
+      # used in producing the exemplar results, where the u == 'exemplar_resuls)
+      def setup_run_and_public_dir(u)
+        @uniq_time = u ? u : Time.new.strftime('%Y-%m-%d_%H-%M-%S_%L-%N').to_s
         @run_dir = File.join(users_dir, @email, @params['geo_db'], @uniq_time)
         logger.debug("Creating Run Directory: #{@run_dir}")
         FileUtils.mkdir_p(@run_dir)
