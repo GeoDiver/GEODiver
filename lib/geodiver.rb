@@ -124,11 +124,13 @@ module GeoDiver
     def init_public_dir
       FileUtils.mkdir_p @public_dir unless Dir.exist?(@public_dir)
       root_assets = File.join(GeoDiver.root, 'public/assets')
-      FileUtils.rm_rf(File.join(@public_dir, 'assets'))
+      assets = File.join(@public_dir, 'assets')
       if environment == 'development'
-        FileUtils.ln_s(root_assets, @public_dir)
-      else
-        FileUtils.cp_r(root_assets, @public_dir)
+        FileUtils.rm_rf(assets) unless File.symlink?(assets)
+        FileUtils.ln_s(root_assets, @public_dir) unless File.exist?(assets)
+      elsif environment == 'production'
+        FileUtils.rm_rf(assets) if File.symlink?(assets)
+        FileUtils.cp_r(root_assets, @public_dir) unless File.exist?(assets)
       end
       init_public_gd_dir(@public_dir)
     end
