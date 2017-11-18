@@ -75,14 +75,25 @@ module GeoDiver
         JSON.parse(meta_file_content)
       end
 
-      #
       def download_and_parse_meta_data(geo_accession)
+        data = download_meta_data(geo_accession)
+        meta = parse_gds_db(data) if geo_accession =~ /^GDS/
+        meta = parse_gse_db(data) if geo_accession =~ /^GSE/
+        assert_meta_data(meta)
+        meta
+      end
+
+      #
+      def download_meta_data(geo_accession)
         file = download_geo_file(geo_accession)
-        data = read_geo_file(file)
-        return parse_gds_db(data) if geo_accession =~ /^GDS/
-        return parse_gse_db(data) if geo_accession =~ /^GSE/
+        read_geo_file(file)
       rescue
         raise ArgumentError, 'GeoDiver was unable to download the GEO Database'
+      end
+
+      def assert_meta_data(meta_data)
+        return unless meta_data['Factors'].empty? || meta_data['Factors'].nil?
+        raise ArgumentError, 'GeoDiver was unable to parse the GEO Database'
       end
 
       #
