@@ -132,7 +132,7 @@ Something went wonky
 
 Looks like you have encountered a bug in GeoDiver. Please could you
 report this incident here -
-https://github.com/SBCS-Bioinformatics/GEODiver/issues
+https://github.com/GeoDiver/GeoDiver/issues
 
 Error:
 #{e.backtrace.unshift(e.message).join("\n")}
