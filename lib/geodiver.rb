@@ -194,12 +194,12 @@ module GeoDiver
     # Test if the RCore is working and also produce the exemplar results
     def generate_exemplar_results(geodb = 'GDS724')
       @exemplar_results = File.join('geodiver', geodb, 'exemplar_results')
-      return if File.exist?(@exemplar_results)
+      return if File.exist?(File.join(@users_dir, @exemplar_results))
       logger.debug 'Testing RCore and producing Exemplar Results Page'
       session_geodb = load_geo_db(geodb)
-      r = GeoAnalysis.run(default_params, 'geodiver', server_url, session_geodb,
-                          'exemplar_results')
-      assert_rcore_works(r)
+      results = GeoAnalysis.run(default_params, 'geodiver', server_url,
+                                session_geodb, 'exemplar_results')
+      assert_rcore_works(results)
       logger.debug "Exemplar Results page is available at: #{r[:results_url]}"
     end
 
