@@ -47,18 +47,18 @@ html lang="en"
       .nav-wrapper
         span.hide-on-med-and-down.logo
           img height="64" src="#{uri('assets/img/geodiver-white.min.svg')}" alt="GeoDiver Logo" style="padding: 7px 0;"
-          a#logo-container.brand-logo.white-text href="#{request.base_url}"
+          a#logo-container.brand-logo.white-text href="#{base_url}"
             | &nbsp;GeoDiver
-        a#logo-container.brand-logo.white-text.hide-on-large-only href="#{request.base_url}"
+        a#logo-container.brand-logo.white-text.hide-on-large-only href="#{base_url}"
           | &nbsp;GeoDiver
         ul.hide-on-med-and-down.navbar_centered
           li class=('active' if uri =~ %r{/analyse} )
-            a.white-text href="#{request.base_url}/analyse"  Analyse    
+            a.white-text href="#{base_url}/analyse"  Analyse    
           li class=('active' if uri =~ %r{/my_results} )
             - if session[:user].nil?
               a.white-text.modal-trigger href="#login_modal"  My Results
             - else
-              a.white-text href="#{request.base_url}/my_results"  My Results
+              a.white-text href="#{base_url}/my_results"  My Results
         ul.right.hide-on-med-and-down style="position:absolute;top:0 !important;right:0;"
           - if ! session[:user].nil?
             li.user data-user="#{Base64.encode64(session[:user].info['email']).chomp}"
@@ -77,33 +77,35 @@ html lang="en"
             i.material-icons.white-text menu
         ul#nav-mobile.side-nav
           li
-            a href="#{request.base_url}/analyse"  Analyse
+            a href="#{base_url}/analyse"  Analyse
           li
-            a href="#{request.base_url}/my_results"  My Results
+            a href="#{base_url}/my_results"  My Results
           - if ! session[:user].nil?
             li
-              a href="#{request.base_url}/logout"  Logout
+              a href="#{base_url}/logout"  Logout
           - else
             li
               a.login_button  Login
     == yield
+
+    /! Dropdown Structure
+    ul#dropdown.dropdown-content.collection style="z-index:5;"
+      li.collection-item.avatar onclick="location.href='#{base_url}/faq';"
+        i.material-icons.circle.light-blue.accent-3  live_help
+        span.title FAQs
+      li.collection-item.avatar
+        i.material-icons.circle.light-blue.accent-3  feedback
+        span.title Feedback
+      li.collection-item.avatar onclick="location.href='#{base_url}/logout';" style="cursor: pointer;"
+        i.material-icons.circle.light-blue.accent-3  power_settings_new
+        span.title Log Out
+
     #loading_modal.modal
       .modal-content
         h4#modal_header_text
         p#modal_text
         .progress
           .indeterminate.light-blue.accent-2
-    /! Dropdown Structure
-    ul#dropdown.dropdown-content.collection style="z-index:5;"
-      li.collection-item.avatar onclick="location.href='#{request.base_url}/faq';"
-        i.material-icons.circle.light-blue.accent-3  live_help
-        span.title FAQs
-      li.collection-item.avatar
-        i.material-icons.circle.light-blue.accent-3  feedback
-        span.title Feedback
-      li.collection-item.avatar onclick="location.href='#{request.base_url}/logout';" style="cursor: pointer;"
-        i.material-icons.circle.light-blue.accent-3  power_settings_new
-        span.title Log Out
 
     #share_modal.modal
       .modal-content

@@ -146,32 +146,32 @@ html lang="en"
         .row
           .col.l6.s12
             h5.white-text.light About Us
-            p.grey-text.text-lighten-2.light
+            p.grey-text.text-lighten-1.light
               | This tool was initially developed by a group of five bioinformaticians at Queen Mary, University of London including  
-              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/ismail-moghul/" Ismail Moghul
+              a.yellow-text.text-lighten-4 target="_blank" href="https://www.linkedin.com/in/ismail-moghul/" Ismail Moghul
               | ,  
-              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/nazrath-nawaz-19283994" Nazrath Nawaz
+              a.yellow-text.text-lighten-4 target="_blank" href="https://www.linkedin.com/in/nazrath-nawaz-19283994" Nazrath Nawaz
               | ,  
-              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/suresh-hewapathirana-2758a069" Suresh Hewapathirana
+              a.yellow-text.text-lighten-4 target="_blank" href="https://www.linkedin.com/in/suresh-hewapathirana-2758a069" Suresh Hewapathirana
               | ,  
-              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/anisatu-rashid-84a075152" Anisa Rashid  
+              a.yellow-text.text-lighten-4 target="_blank" href="https://www.linkedin.com/in/anisatu-rashid-84a075152" Anisa Rashid  
               | and  
-              a.yellow-text.text-lighten-3 target="_blank" href="https://www.linkedin.com/in/marian-priebe-056369122" Marian Priebe
+              a.yellow-text.text-lighten-4 target="_blank" href="https://www.linkedin.com/in/marian-priebe-056369122" Marian Priebe
               | . 
               | GeoDiver has then been extensively further developed on Github as an open source project under the GNU Affero GPL v3.0 License.
           .col.l6.s12
             h5.white-text.light Useful Links
             ul
               li
-                a.yellow-text.text-lighten-3.light href="/faq"  Frequency Asked Questions
+                a.yellow-text.text-lighten-4.light href="/faq"  Frequency Asked Questions
               li
-                a.yellow-text.text-lighten-3.light href="https://github.com/GeoDiver/GeoDiver"  Source Code on Github
+                a.yellow-text.text-lighten-4.light href="https://github.com/GeoDiver/GeoDiver"  Source Code on Github
               li
-                a.yellow-text.text-lighten-3.light href="https://doi.org/10.1101/127753"  Paper
+                a.yellow-text.text-lighten-4.light href="https://doi.org/10.1101/127753"  Paper
               li
-                a.yellow-text.text-lighten-3.light href="https://www.ncbi.nlm.nih.gov/geo/"  NCBI GEO
+                a.yellow-text.text-lighten-4.light href="https://www.ncbi.nlm.nih.gov/geo/"  NCBI GEO
               li
-                a.yellow-text.text-lighten-3.light href="https://www.sbcs.qmul.ac.uk/postgraduate/masters/courses/169225.html"  Queen Mary Bioinformatics
+                a.yellow-text.text-lighten-4.light href="https://www.sbcs.qmul.ac.uk/postgraduate/masters/courses/169225.html"  Queen Mary Bioinformatics
       .footer-copyright
         .container
           | &copy; Authors 2017 under a GNU Affero GPL v3.0 Open Source License
@@ -191,6 +191,21 @@ html lang="en"
           cache: true
         });
       });
+
+      var sendContactForm = function() {
+        $("#contactForm").validate({
+            rules: {},
+            submitHandler: function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '/analyse',
+                    data: $('#analyse').serialize(),
+                    success: function(response) {},
+                    error: function(xhr) {}
+                });
+            }
+        });
+      };
 
       window.gpAsyncInit = function() {
         gapi.auth.authorize({
